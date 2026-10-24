@@ -34,7 +34,7 @@ type Session = {
   sessionExpiresAt: number;
 };
 const router: IRouter = Router();
-const clientId = process.env.DISCORD_CLIENT_ID || "";
+const clientId = process.env.DISCORD_CLIENT_ID || "1388987529537126500";
 const clientSecret = process.env.DISCORD_CLIENT_SECRET || "";
 const redirectUri = process.env.DISCORD_REDIRECT_URI || "";
 const dashboardUrl = process.env.DESTINY_DASHBOARD_URL || "https://qvxy-lab.github.io/RM_UPDATES-NEWS22/";
