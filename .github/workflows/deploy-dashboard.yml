@@ -37,7 +37,8 @@ jobs:
           if url and not url.startswith('https://'):
               raise SystemExit('DESTINY_API_URL must use HTTPS')
           pathlib.Path('_site/destiny-config.js').write_text(
-              'window.DESTINY_API_URL = ' + json.dumps(url) + ';',
+              'window.DESTINY_APPLICATION_ID = "1388987529537126500";\n' +
+              'window.DESTINY_API_URL = ' + json.dumps(url) + ';\n',
               encoding='utf-8'
           )
           PY
