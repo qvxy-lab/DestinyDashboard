@@ -29,7 +29,7 @@ jobs:
           touch _site/.nojekyll
       - name: Set public authentication API URL
         env:
-          DESTINY_API_URL: ${{ vars.DESTINY_API_URL }}
+          DESTINY_API_URL: ${{ vars.DESTINY_API_URL || 'https://destiny.fadehost.app' }}
         run: |
           python3 - <<'PY'
           import json, os, pathlib
