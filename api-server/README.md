@@ -4,7 +4,7 @@ The **Discord login and multi-server listing implementation** lives in `src/rout
 
 ## Configure the Discord app
 
-In the Discord Developer Portal, open the application for the Destiny bot. Use its **Application ID** as `DISCORD_CLIENT_ID`. Under OAuth2, register the **Redirect URL** exactly as `https://YOUR-API-HOST/api/auth/callback` (replace the API host with your real host). The requested login scopes are `identify guilds`. Do not post the client secret or bot token in chat or commit them to GitHub.
+In the Discord Developer Portal, open the application for the Destiny bot. The Destiny **Application ID is `1388987529537126500`** and is already set as the default `DISCORD_CLIENT_ID`. Under OAuth2, register the **Redirect URL** exactly as `https://YOUR-API-HOST/api/auth/callback` (replace the API host with your real host). The requested login scopes are `identify guilds`. Do not post the client secret or bot token in chat or commit them to GitHub.
 
 ## Runtime configuration
 
