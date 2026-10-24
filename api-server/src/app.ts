@@ -1,5 +1,6 @@
 import express, { type Express } from "express";
 import cors from "cors";
+import cookieParser from "cookie-parser";
 import pinoHttp from "pino-http";
 import router from "./routes";
 import { logger } from "./lib/logger";
@@ -25,7 +26,19 @@ app.use(
     },
   }),
 );
-app.use(cors());
+const dashboardOrigin = new URL(process.env.DESTINY_DASHBOARD_URL || "https://qvxy-lab.github.io/RM_UPDATES-NEWS22/").origin;
+app.use(cors({
+  origin: (origin, callback) => callback(null, !origin || origin === dashboardOrigin),
+  methods: ["GET", "POST", "OPTIONS"],
+  allowedHeaders: ["Content-Type", "Authorization"],
+}));
+app.use(cookieParser());
+app.use("/api", (_req, res, next) => {
+  res.setHeader("Cache-Control", "no-store");
+  res.setHeader("X-Content-Type-Options", "nosniff");
+  res.setHeader("Referrer-Policy", "no-referrer");
+  next();
+});
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
