@@ -117,6 +117,7 @@ router.get("/auth/discord", (_req, res) => {
   cleanExpired();
   const state = id();
   states.set(state, Date.now() + STATE_TTL);
+  res.cookie("destiny_oauth_state", state, { httpOnly: true, secure: true, sameSite: "lax", path: "/api/auth/callback", maxAge: STATE_TTL });
   const url = new URL("https://discord.com/oauth2/authorize");
   url.search = new URLSearchParams({
     client_id: clientId, redirect_uri: redirectUri, response_type: "code",
@@ -132,7 +133,9 @@ router.get("/auth/callback", async (req, res) => {
   const state = typeof req.query.state === "string" ? req.query.state : "";
   const code = typeof req.query.code === "string" ? req.query.code : "";
   const expiresAt = states.get(state);
-  if (!state || !expiresAt || expiresAt < Date.now()) {
+  const cookieState = typeof req.cookies?.destiny_oauth_state === "string" ? req.cookies.destiny_oauth_state : "";
+  res.clearCookie("destiny_oauth_state", { path: "/api/auth/callback", sameSite: "lax", secure: true });
+  if (!state || !cookieState || cookieState !== state || !expiresAt || expiresAt < Date.now()) {
     res.status(400).send("Login expired or invalid. Start again from Destiny."); return;
   }
   states.delete(state);
