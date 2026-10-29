@@ -16,7 +16,7 @@ Set these on your **backend host**, not the static site:
 | `DISCORD_CLIENT_ID` | Public bot application ID |
 | `DISCORD_CLIENT_SECRET` | Discord OAuth client secret, private |
 | `DISCORD_REDIRECT_URI` | Your backend's public HTTPS `/api/auth/callback` URL, also registered with Discord |
-| `DESTINY_DASHBOARD_URL` | `https://qvxy-lab.github.io/DestinyDashboard/` |
+| `DESTINY_DASHBOARD_URL` | `https://qvxy-lab.github.io/DestinyDashboard/dashboard.html` |
 | `DISCORD_BOT_TOKEN` | Bot token, **private**, required to reliably identify servers with the bot installed |
 
 Deploy `api-server` on a host supporting Node 22+ and HTTPS, with an HTTPS public URL. Install the workspace dependencies and build/start the API service, for example from the repository root:
