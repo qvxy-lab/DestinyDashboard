@@ -23,8 +23,11 @@ jobs:
         uses: actions/configure-pages@v5
       - name: Prepare static site
         run: |
-          mkdir -p _site
+          mkdir -p _site/assets
           cp index.html _site/index.html
+          cp dashboard.html _site/dashboard.html
+          cp documents.html _site/documents.html
+          cp assets/destiny-eagle.svg _site/assets/destiny-eagle.svg
           cp destiny-config.js _site/destiny-config.js
           touch _site/.nojekyll
       - name: Set public authentication API URL
