@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#07090c"><meta name="description" content="Destiny Control Center documentation, getting started and server management guides.">
+<title>Documents | Destiny Control Center</title>
+<link rel="icon" href="./assets/destiny-eagle.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{color-scheme:dark;--bg:#07090b;--line:#ffffff16;--fg:#f5f7fa;--muted:#a0aab9}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;min-height:100vh;background:#090a0e;color:var(--fg);font:14px/1.7 'DM Sans',sans-serif;background-image:radial-gradient(ellipse at 75% 5%,#27364a33,transparent 45%),linear-gradient(140deg,#08090c,#11151c 55%,#08090c)}
+a{color:inherit;text-decoration:none}a:focus-visible{outline:2px solid #c4d8f1;outline-offset:5px}
+.site{max-width:1250px;margin:0 auto;padding:0 clamp(22px,5vw,70px)}
+.nav{height:90px;display:flex;align-items:center;justify-content:space-between;gap:12px;border-bottom:1px solid var(--line)}
+.brand{display:flex;align-items:center;gap:12px;font:800 17px 'Plus Jakarta Sans',sans-serif;letter-spacing:.06em}
+.brand img{width:39px;height:39px;padding:5px;border:1px solid #ffffff23;border-radius:11px;background:#ffffff08}
+.nav-actions{display:flex;gap:10px}.nav-actions a,.back{display:inline-flex;gap:9px;align-items:center;padding:10px 15px;border:1px solid #ffffff26;border-radius:10px;font-size:13px;transition:.2s}.nav-actions a:hover,.back:hover{border-color:#d0deee99;background:#ffffff11}.nav-actions .highlight{background:#eceff5;color:#15191f;font-weight:700}
+.hero{padding:78px 0 65px;border-bottom:1px solid var(--line)}
+.kicker{font-size:11px;letter-spacing:.27em;color:#aebdd0;font-weight:700;text-transform:uppercase;display:flex;align-items:center;gap:12px}.kicker::before{content:"";display:block;width:37px;height:1px;background:#afc2d6}
+h1{font:800 clamp(48px,7vw,75px)/1.08 'Plus Jakarta Sans',sans-serif;letter-spacing:-.067em;margin:15px 0 15px}
+h1 span{color:#a4b0c2}.hero p{max-width:710px;font-size:17px;line-height:1.7;color:var(--muted);margin:0}
+.layout{display:grid;grid-template-columns:230px minmax(0,1fr);gap:55px;padding:48px 0 90px}
+aside{align-self:start;position:sticky;top:26px}.aside-heading{font:700 10px 'Plus Jakarta Sans';letter-spacing:.24em;color:#8693a6;margin:10px 0 17px;text-transform:uppercase}
+aside a{display:block;padding:10px 13px;margin-bottom:4px;border-radius:9px;color:#9da8b9;transition:.2s}aside a:hover,aside a:focus{color:#f5f7fb;background:#ffffff0d}
+section{scroll-margin-top:30px;margin:0 0 66px}.sec-top{font-size:11px;letter-spacing:.22em;font-weight:700;color:#8e9bad;margin-bottom:12px}
+h2{font:800 28px 'Plus Jakarta Sans',sans-serif;letter-spacing:-.04em;margin:0 0 14px}h3{font:700 16px 'Plus Jakarta Sans',sans-serif;margin:0 0 7px}
+.intro{color:#9da8b8;margin:0 0 26px;max-width:750px}
+.tiles{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:15px}
+.tile{padding:23px;border:1px solid #ffffff17;border-radius:17px;background:linear-gradient(150deg,#ffffff0c,#ffffff04);transition:.2s}.tile:hover{transform:translateY(-3px);border-color:#a3b8cc55}.tile p{color:#909cac;margin:0}.tile-number{font:700 11px 'Plus Jakarta Sans';letter-spacing:.18em;color:#96a8bb;margin-bottom:16px}
+.steps{list-style:none;padding:0;margin:0;counter-reset:step}.steps li{position:relative;padding:0 0 26px 51px;counter-increment:step;border-left:1px solid #ffffff17;margin-left:17px}.steps li:last-child{border-left-color:transparent}.steps li:before{content:counter(step);position:absolute;left:-17px;top:0;border:1px solid #b5c3d47a;width:33px;height:33px;display:grid;place-items:center;border-radius:9px;color:#e7ecf3;background:#141b24;font-weight:700}.steps li h3{padding-top:3px}.steps li p{color:#9ba6b6;margin:0}
+.inline-link{color:#d6e2f4;text-decoration:underline;text-underline-offset:3px}
+.note{padding:20px 24px;border:1px solid #9eb1c141;border-radius:14px;background:#ffffff08;color:#c2cbd8}.note strong{display:block;color:#f5f8fc;margin-bottom:4px}
+.faq{border-top:1px solid #ffffff18}.faq details{border-bottom:1px solid #ffffff18;padding:17px 0}.faq summary{cursor:pointer;font-weight:700;list-style:none;display:flex;justify-content:space-between;align-items:center;gap:10px}.faq summary::-webkit-details-marker{display:none}.faq summary::after{content:"+";font-size:20px;color:#9dabbb}.faq details[open] summary::after{content:"−"}.faq p{margin:10px 0 0;color:#a1abb8}
+.cta{display:flex;align-items:center;justify-content:space-between;gap:22px;background:linear-gradient(120deg,#29324180,#111722a8);border:1px solid #d0e0f128;border-radius:19px;padding:26px}.cta p{color:#aeb8c6;margin:7px 0 0}.cta a{flex-shrink:0;padding:12px 19px;background:#f4f7fb;color:#11171e;border-radius:11px;font-weight:700}
+footer{border-top:1px solid var(--line);padding:25px 0 36px;color:#7f8c9d;font-size:11px;letter-spacing:.09em;display:flex;justify-content:space-between}
+@media(max-width:780px){.layout{grid-template-columns:1fr;gap:25px}.hero{padding:56px 0 45px}aside{position:static;display:flex;flex-wrap:wrap;gap:5px;border-bottom:1px solid #ffffff19;padding-bottom:15px}aside .aside-heading{width:100%}aside a{font-size:12px;margin:0}.tiles{grid-template-columns:1fr}.cta{flex-direction:column;align-items:flex-start}}
+@media(max-width:470px){.nav-actions a:first-child{display:none}.brand{font-size:14px}.cta a{width:100%;text-align:center}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*::before,*::after{transition:none!important}}
+</style>
+</head>
+<body>
+<div class="site">
+<nav class="nav">
+<a href="./" class="brand"><img src="./assets/destiny-eagle.svg" alt=""><span>DESTINY <span style="color:#a7b5c5">/ DOCUMENTS</span></span></a>
+<div class="nav-actions"><a href="./">← Main Menu</a><a class="highlight" href="./dashboard.html">Dashboard ↗</a></div>
+</nav>
+<header class="hero">
+<div class="kicker">DESTINY KNOWLEDGE BASE</div>
+<h1>Everything in <span>one place.</span></h1>
+<p>Explore the Destiny Control Center, connect your Discord account and find the server tools you need. Practical guides, without the clutter.</p>
+</header>
+<div class="layout">
+<aside aria-label="Document sections">
+<div class="aside-heading">CONTENTS</div>
+<a href="#getting-started">Getting started</a>
+<a href="#control-center">The control center</a>
+<a href="#access">Accounts & permissions</a>
+<a href="#security">Security</a>
+<a href="#faq">Common questions</a>
+</aside>
+<main>
+<section id="getting-started">
+<div class="sec-top">01 / QUICK START</div>
+<h2>Getting started</h2>
+<p class="intro">Log in using Discord to view communities you manage and access the Destiny dashboard.</p>
+<ol class="steps">
+<li><h3>Open the dashboard</h3><p>Choose <a class="inline-link" href="./dashboard.html">Dashboard</a> from the main menu.</p></li>
+<li><h3>Sign in with Discord</h3><p>Use <strong>Login with Discord</strong> and authorize Destiny's requested account and server-list access.</p></li>
+<li><h3>Choose a server</h3><p>Under <strong>My Servers</strong>, select a server where you have the required management permissions. If Destiny is not yet installed, use the invite option.</p></li>
+<li><h3>Explore its controls</h3><p>Browse community, moderation, insight and operation tools for your selected server.</p></li>
+</ol>
+</section>
+<section id="control-center">
+<div class="sec-top">02 / MODULES</div>
+<h2>Inside the dashboard</h2>
+<p class="intro">Different tools are grouped together, so you can find the right module without searching through dozens of commands.</p>
+<div class="tiles">
+<div class="tile"><div class="tile-number">COMMUNITY</div><h3>Welcome & members</h3><p>Explore welcome messages, autoroles, nickname syncing, reaction tools and support panels.</p></div>
+<div class="tile"><div class="tile-number">MANAGEMENT</div><h3>Server operations</h3><p>Find deployments, squads, bump reminders and server statistics in a single workspace.</p></div>
+<div class="tile"><div class="tile-number">MODERATION</div><h3>Trust & safety</h3><p>Review moderation and anti-raid sections for the server you're working with.</p></div>
+<div class="tile"><div class="tile-number">TOOLS</div><h3>Commands & AI</h3><p>Browse bot commands, AI assistant options and appearance settings from the navigation.</p></div>
+</div>
+<div class="note" style="margin-top:18px"><strong>Configuration availability</strong>Discord login and manageable-server discovery are connected to the Destiny bot. Some settings panels are still previews and do not yet push changes to your server. A setting should not be considered applied until the dashboard confirms it.</div>
+</section>
+<section id="access">
+<div class="sec-top">03 / AUTHORIZATION</div>
+<h2>Accounts & permissions</h2>
+<p class="intro">Destiny uses Discord OAuth2 to connect your identity. You will only see servers you own or have permission to manage. Bot installation is separate from logging in.</p>
+<div class="note"><strong>Not seeing a server?</strong>Check whether your Discord account has <em>Manage Server</em> or <em>Administrator</em> permission, and verify that Destiny is installed in the server you want to configure.</div>
+</section>
+<section id="security">
+<div class="sec-top">04 / PRIVACY</div>
+<h2>Keep your credentials private</h2>
+<p class="intro">Destiny's backend handles Discord authorization. You should never put your Bot Token, OAuth2 Client Secret or private API keys in a Discord message, browser page or public GitHub repository.</p>
+<div class="note"><strong>Important</strong>Only enter private credentials in your trusted hosting provider's private environment-variable settings. You do not need to share your Discord password with Destiny.</div>
+</section>
+<section id="faq">
+<div class="sec-top">05 / ANSWERS</div>
+<h2>Frequently asked questions</h2>
+<div class="faq">
+<details><summary>Do I need to install Destiny before logging in?</summary><p>No. You can authorize your Discord account and then see the manageable server list. Install Destiny separately in servers where you want to use it.</p></details>
+<details><summary>Why can't I see a server?</summary><p>You must own the server or have Manage Server or Administrator permission. Ensure you logged in with the correct Discord account.</p></details>
+<details><summary>Are all dashboard settings live?</summary><p>Not yet. Some panels are previews. Discord login and guild discovery work through the bot backend, while other configuration features are being connected.</p></details>
+<details><summary>How do I return to the homepage?</summary><p>Use the Destiny eagle in the dashboard sidebar or the Main Menu link at the top of this page.</p></details>
+</div>
+</section>
+<div class="cta"><div><h3>Ready to take command?</h3><p>Continue to DestinyDashboard and manage your servers.</p></div><a href="./dashboard.html">Open Dashboard ↗</a></div>
+</main>
+</div>
+<footer><span>DESTINY CONTROL CENTER</span><span>DOCUMENTATION / 2026</span></footer>
+</div>
+</body>
+</html>
