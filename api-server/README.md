@@ -16,7 +16,7 @@ Set these on your **backend host**, not the static site:
 | `DISCORD_CLIENT_ID` | Public bot application ID |
 | `DISCORD_CLIENT_SECRET` | Discord OAuth client secret, private |
 | `DISCORD_REDIRECT_URI` | Your backend's public HTTPS `/api/auth/callback` URL, also registered with Discord |
-| `DESTINY_DASHBOARD_URL` | `https://qvxy-lab.github.io/RM_UPDATES-NEWS22/` |
+| `DESTINY_DASHBOARD_URL` | `https://qvxy-lab.github.io/DestinyDashboard/` |
 | `DISCORD_BOT_TOKEN` | Bot token, **private**, required to reliably identify servers with the bot installed |
 
 Deploy `api-server` on a host supporting Node 22+ and HTTPS, with an HTTPS public URL. Install the workspace dependencies and build/start the API service, for example from the repository root:
@@ -29,7 +29,7 @@ corepack pnpm --filter @workspace/api-server start
 
 Use your host's startup/build commands; these are examples, not something GitHub Pages can execute. Verify `https://YOUR-API-HOST/api/healthz` and `https://YOUR-API-HOST/api/auth/status` respond; `configured: true` is required before sign-in.
 
-**Then:** Set the public `DESTINY_API_URL` GitHub Actions **repository variable** in `qvxy-lab/RM_UPDATES-NEWS22` to your backend's HTTPS origin, e.g. `https://YOUR-API-HOST` (do NOT add `/api`). Re-run the **Deploy Destiny Dashboard** action on the `main` branch. Only this *public URL* is injected into GitHub Pages.
+**Then:** Set the public `DESTINY_API_URL` GitHub Actions **repository variable** in `qvxy-lab/DestinyDashboard` to your backend's HTTPS origin, e.g. `https://YOUR-API-HOST` (do NOT add `/api`). Re-run the **Deploy Destiny Dashboard** action on the `main` branch. Only this *public URL* is injected into GitHub Pages.
 
 ## Endpoints
 
