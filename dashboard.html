@@ -176,7 +176,41 @@ if(kind==='toggle'){input=el('button','toggle');input.type='button';input.setAtt
 if(premium){input.disabled=true;row.classList.add('premium-locked')}row.append(info,input);panel.append(row)}
 const actions=el('div','actions');const msg=el('span','','');msg.style.color='#a6aec1';const save=el('button','button primary','Save AI settings');save.onclick=()=>msg.textContent='Connect the bot API to save and enforce AI settings.';actions.append(msg,save);panel.append(actions);content.append(panel,el('div','alert','The 100-message Free quota is a planned server-side rule, not currently enforced. A secure bot-side counter, plan validation, and UTC daily reset must be implemented before launch. Premium access is not sold or charged here.'));
 }
-function showCommands(){content.append(header('Commands','Reference for public, staff, and owner commands found in the Destiny bot source.'));const toolbar=el('div','toolbar'),search=el('input','input');search.placeholder='Search commands';search.setAttribute('aria-label','Search commands');const select=el('select','input');select.style.maxWidth='180px';for(const v of ['All','Public','Staff','Owner']){const o=el('option','',v);o.value=v;select.append(o)}toolbar.append(search,select);const grid=el('div','catalog');function render(){grid.replaceChildren();for(const x of commands.filter(x=>(select.value==='All'||select.value===x.permission)&&x.name.toLowerCase().includes(search.value.toLowerCase()))){const c=el('div','command');add(c,el('small','',x.permission),el('strong','','/'+x.name));grid.append(c)}}search.oninput=render;select.onchange=render;render();content.append(toolbar,grid)}
+
+// Premium catalog reflects bot feature gates. Website controls are previews until
+// authenticated Premium status and write APIs are connected.
+const premiumCommandNames=new Set(["ai","giveaway","tickets","serverstats","j2c","ghostping","specialautoroles","nickname","watermark","watermarkremove","autorole","autorolebot","rolegive","botrolegive","imagesr","imagestats","imageremove","welcome","goodbye","advancedstats","autoresponder"]);
+const premiumCommandDetails=[
+ ["autoresponder","Premium","Keyword-based automatic replies: set, remove, list"],
+ ["advancedstats","Premium","Detailed server membership, channels, and roles"],
+ ["aiautomod","Planned","AI-assisted moderation"],
+ ["aiautoresponder","Planned","AI-assisted automatic replies"],
+ ["scheduledmessages","Planned","Scheduled announcements"],
+ ["autodelete","Planned","Automatic message cleanup"],
+ ["serverbackup","Planned","Backup server configuration"],
+ ["serverrestore","Planned","Restore a saved server configuration"],
+ ["advancedlogs","Planned","Advanced audit and activity logs"],
+ ["rolebackup","Planned","Backup role configuration"],
+ ["advancedautorole","Planned","Conditional autoroles"],
+ ["reactionroles","Planned","Reaction-based role selection"],
+ ["rolemenus","Planned","Interactive role menus"],
+ ["levelroles","Planned","Level-based rewards"],
+ ["pacimagesr","Planned","Image watermark command alias"],
+ ["pacimagesrremove","Planned","Remove image watermark rules"],
+ ["customwelcome","Planned","Advanced welcome templates"],
+ ["customgoodbye","Planned","Advanced goodbye templates"],
+ ["embedbuilder","Planned","Custom embed creation"],
+ ["custombranding","Planned","Premium brand customization"],
+ ["advancedgiveaway","Planned","Advanced giveaway controls"],
+ ["advancedtickets","Planned","Advanced ticket management"],
+ ["invitetracker","Planned","Invite analytics controls"],
+ ["customj2c","Planned","Custom join-to-create voice settings"]
+];
+for(const [name,permission,description] of premiumCommandDetails)
+ if(!commands.some(c=>c.name===name))commands.push({name,permission,description});
+for(const cmd of commands)if(premiumCommandNames.has(cmd.name))cmd.permission="Premium";
+
+function showCommands(){content.append(header('Commands','Reference for public, staff, owner, and Premium commands. Planned commands are not yet available in the bot.'));const toolbar=el('div','toolbar'),search=el('input','input');search.placeholder='Search commands';search.setAttribute('aria-label','Search commands');const select=el('select','input');select.style.maxWidth='180px';for(const v of ['All','Public','Staff','Owner','Premium','Planned']){const o=el('option','',v);o.value=v;select.append(o)}toolbar.append(search,select);const grid=el('div','catalog');function render(){grid.replaceChildren();for(const x of commands.filter(x=>(select.value==='All'||select.value===x.permission)&&x.name.toLowerCase().includes(search.value.toLowerCase()))){const c=el('div','command');add(c,el('small','',x.permission),el('strong','','/'+x.name));if(x.description)c.append(el('p','',x.description));grid.append(c)}}search.oninput=render;select.onchange=render;render();content.append(toolbar,grid)}
 function integrations(){
  content.append(header('Discord Login','Connect your Discord account and manage your authorized servers.'));
  const p=el('section','panel login-hero');add(p,el('div','login-sigil','◈'),el('h2','',currentUser?'You are signed in':'Sign in to Destiny'),el('p','',currentUser?'Your Discord account is connected. Open My Servers to select a server.':'Authorize Destiny with Discord to see the servers you can manage.'));
