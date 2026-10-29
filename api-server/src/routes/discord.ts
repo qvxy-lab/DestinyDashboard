@@ -37,7 +37,9 @@ const router: IRouter = Router();
 const clientId = process.env.DISCORD_CLIENT_ID || "1388987529537126500";
 const clientSecret = process.env.DISCORD_CLIENT_SECRET || "";
 const redirectUri = process.env.DISCORD_REDIRECT_URI || "";
-const dashboardUrl = process.env.DESTINY_DASHBOARD_URL || "https://qvxy-lab.github.io/DestinyDashboard/";
+const requestedDashboardUrl = process.env.DESTINY_DASHBOARD_URL || "https://qvxy-lab.github.io/DestinyDashboard/dashboard.html";
+const dashboardUrl = new Set(["https://qvxy-lab.github.io/DestinyDashboard/", "https://qvxy-lab.github.io/RM_UPDATES-NEWS22/"]).has(requestedDashboardUrl)
+  ? "https://qvxy-lab.github.io/DestinyDashboard/dashboard.html" : requestedDashboardUrl;
 const botToken = process.env.DISCORD_BOT_TOKEN || process.env.DISCORD_TOKEN || "";
 const founderIds = new Set(["1348206616973152336", "1041404091936538624"]);
 const states = new Map<string, number>();
