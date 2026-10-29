@@ -139,6 +139,17 @@ footer span:last-child{color:#b0bbc9}
 </div>
 <script>
 (function(){
+ // Existing FadeHost deployments may still return the OAuth ticket to the
+ // previous dashboard root. Forward it to the real authenticated dashboard
+ // without modifying, logging, or retaining the single-use ticket.
+ const params=new URLSearchParams(location.search);
+ if(params.has('destiny_ticket') || params.has('destiny_error')){
+   const url=new URL('./dashboard.html',location.href);
+   url.search=location.search;
+   url.hash=location.hash||'#My%20Servers';
+   location.replace(url.toString());
+   return;
+ }
  const stage=document.getElementById('eagle-stage');
  if(!stage || window.matchMedia('(prefers-reduced-motion: reduce)').matches || !window.matchMedia('(hover: hover)').matches)return;
  const visual=stage.closest('.hero-visual');
