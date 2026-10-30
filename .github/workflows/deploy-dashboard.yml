@@ -27,6 +27,7 @@ jobs:
           cp index.html _site/index.html
           cp dashboard.html _site/dashboard.html
           cp documents.html _site/documents.html
+          cp shop.html _site/shop.html
           cp assets/destiny-eagle.svg _site/assets/destiny-eagle.svg
           cp destiny-config.js _site/destiny-config.js
           touch _site/.nojekyll
