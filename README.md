@@ -13,4 +13,4 @@ The homepage's **Dashboard** and **Documents** links lead to real pages. The das
 
 The GitHub Pages Actions workflow deploys all three HTML files, the eagle asset, and public `destiny-config.js`. The secure OAuth API runs separately at the FadeHost bot. **Never commit Discord Client Secrets or bot tokens.**
 
-Some server-configuration panels are still previews; they don't persist bot settings yet.
+**Welcome & Goodbye** now loads channels and templates from the running bot, with authenticated, server-scoped updates. Redeploy the latest USOTF-Manager bot on FadeHost to enable its `/api/guilds/:guildId/welcome` endpoint. Other server-configuration panels remain previews.
