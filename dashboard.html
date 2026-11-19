@@ -241,11 +241,13 @@ async function welcomeSettings(){
                 if(current==='Welcome & Goodbye'&&selectedGuild?.id===guildId){
                     status.textContent=result.ok?'Saved to Destiny successfully.':'The server did not confirm the save.';
                     status.style.color=result.ok?'#b3e4c8':'#f6b8b8';
+                    window.DestinyUI?.sound(result.ok?'success':'error');
                 }
             }catch(error){
                 if(current==='Welcome & Goodbye'&&selectedGuild?.id===guildId){
                     status.style.color='#f4b7b7';
                     status.textContent='Not saved: '+(error.message||'Unknown error.');
+                    window.DestinyUI?.sound('error');
                 }
             }finally{
                 save.disabled=false;cancel.disabled=false;save.textContent='Save changes';
@@ -295,8 +297,8 @@ async function civilianExpirySettings(){
   const save=el('button','button primary','Save changes');save.onclick=async()=>{
    if(!Number.isInteger(values.days)||values.days<1||values.days>90){status.textContent='Enter a whole number from 1 to 90.';return}
    save.disabled=true;save.textContent='Saving…';status.textContent='Saving to Destiny…';
-   try{const result=await authApi('/guilds/'+encodeURIComponent(guildId)+'/unprepared-civilian',{method:'PUT',body:JSON.stringify(values)});status.textContent=result.ok?'Saved. New timers use '+result.settings.days+' days.':'Save not confirmed.';status.style.color='#b3e4c8'}
-   catch(error){status.textContent='Not saved: '+(error.message||'Unknown error.');status.style.color='#f4b7b7'}
+   try{const result=await authApi('/guilds/'+encodeURIComponent(guildId)+'/unprepared-civilian',{method:'PUT',body:JSON.stringify(values)});status.textContent=result.ok?'Saved. New timers use '+result.settings.days+' days.':'Save not confirmed.';status.style.color=result.ok?'#b3e4c8':'#f4b7b7';window.DestinyUI?.sound(result.ok?'success':'error')}
+   catch(error){status.textContent='Not saved: '+(error.message||'Unknown error.');status.style.color='#f4b7b7';window.DestinyUI?.sound('error')}
    finally{save.disabled=false;save.textContent='Save changes'}
   };
   actions.append(status,save);panel.append(actions);
@@ -307,33 +309,82 @@ async function civilianExpirySettings(){
   content.append(el('div','alert','Could not load this server’s settings: '+(error.message||'Unknown error.')+'. Redeploy the latest bot if the endpoint is unavailable.'));
  }
 }
-function settings(name){if(name==='Welcome & Goodbye'){void welcomeSettings();return}if(name==='AI Assistant'){aiStudio();return}if(name==='Bot Appearance'){botAppearance();return}content.append(header(name,sections.find(x=>x[0]===name)?.[3]||'Manage settings'));if(!selectedGuild){const n=el('div','alert','No Discord server selected. Connect Discord and choose a server from My Servers before editing settings.');n.style.marginBottom='18px';content.append(n)}const panel=el('section','panel'),ph=el('div','panel-head');add(ph,el('h2','','Configuration'),el('p','','Set up your preferences using the fields below. These values are not yet connected to the running bot.'));panel.append(ph);const fields=configs[name]||[];for(const [label,type,help] of fields){const row=el('div','fieldrow'),info=el('div');add(info,el('strong','',label),el('small','',help));let input;if(type==='toggle'){input=el('button','toggle');input.type='button';input.setAttribute('aria-label',label);input.setAttribute('aria-pressed','false');input.onclick=()=>{input.classList.toggle('on');input.setAttribute('aria-pressed',input.classList.contains('on'));draft[label]=input.classList.contains('on')}}else if(type==='textarea'){input=el('textarea','input');input.placeholder='Enter '+label.toLowerCase();input.oninput=()=>draft[label]=input.value}else{input=el('input','input');input.type=type==='number'?'number':'text';input.placeholder=type==='channel'?'Select a channel after connecting Discord':type==='roles'||type==='role'?'Select roles after connecting Discord':'Enter '+label.toLowerCase();input.oninput=()=>draft[label]=input.value}row.append(info,input);panel.append(row)}const actions=el('div','actions'),msg=el('span','', '');msg.style.color='#a6aec1';const reset=el('button','button','Cancel'),save=el('button','button primary','Save changes');reset.onclick=()=>go(name);save.onclick=()=>{msg.textContent='This feature has not yet been connected to Destiny’s configuration API.'};actions.append(msg,reset,save);panel.append(actions);content.append(panel);const alert=el('div','alert','Preview mode for this feature: Sign-in is working, but these settings have not yet been wired to the bot. No changes are sent to Discord.');content.append(alert)}
+function settings(name){
+ if(name==='Welcome & Goodbye'){void welcomeSettings();return}
+ if(name==='AI Assistant'){aiStudio();return}
+ if(name==='Bot Appearance'){botAppearance();return}
+ content.append(header(name,sections.find(x=>x[0]===name)?.[3]||'Manage settings'));
+ if(!selectedGuild){
+  const n=el('div','alert','No Discord server selected. Connect Discord and choose a server from My Servers before viewing server-specific settings.');
+  n.style.marginBottom='18px';content.append(n);
+ }
+ const panel=el('section','panel'),ph=el('div','panel-head');
+ add(ph,el('h2','','Configuration preview'),el('p','','This section is not connected to a live Destiny configuration endpoint yet. These fields are read-only and cannot change your server.'));
+ panel.append(ph);
+ const fields=configs[name]||[];
+ for(const [label,type,help] of fields){
+  const row=el('div','fieldrow'),info=el('div');
+  add(info,el('strong','',label),el('small','',help));
+  let input;
+  if(type==='toggle'){
+   input=el('button','toggle');input.type='button';input.setAttribute('aria-label',label);input.setAttribute('aria-pressed','false');input.disabled=true;
+  }else if(type==='textarea'){
+   input=el('textarea','input');input.placeholder='Not available until this feature has a live settings API';input.disabled=true;
+  }else{
+   input=el('input','input');input.type=type==='number'?'number':'text';
+   input.placeholder='Not available until this feature has a live settings API';input.disabled=true;
+  }
+  row.classList.add('premium-locked');row.append(info,input);panel.append(row);
+ }
+ const actions=el('div','actions'),msg=el('span','','Preview only · no changes can be saved from this section.');
+ msg.style.color='#a6aec1';msg.style.fontSize='12px';
+ const save=el('button','button primary','Not available yet');save.type='button';save.disabled=true;
+ actions.append(msg,save);panel.append(actions);content.append(panel);
+ const alert=el('div','alert','Live dashboard settings currently include Welcome & Goodbye and Unprepared Civilian. Other modules remain read-only until their bot-side configuration APIs are implemented.');
+ content.append(alert);
+}
 function botAppearance(){
-content.append(header('Bot Appearance','Customize the Destiny bot identity with Premium appearance controls.'));
-const p=el('section','panel'),h=el('div','panel-head');add(h,el('h2','','Bot identity'),el('p','','Preview profile and server identity changes. Actual updates require Discord login, permission checks, and the bot API.'));p.append(h);
-const fields=[['Server nickname','text','Changes how the bot appears in the selected Discord server'],['Profile picture URL','url','Static PNG/JPG or animated GIF when supported by Discord'],['Banner image URL','url','Static or animated image if Discord permits bot banners'],['About me','textarea','Public description where supported']];
-for(const [name,type,help] of fields){const row=el('div','fieldrow'),info=el('div');add(info,el('strong','',name),el('small','',help));info.append(el('span','premium-tag','✦ PREMIUM'));const input=type==='textarea'?el('textarea','input'):el('input','input');if(type!=='textarea')input.type=type==='url'?'url':'text';input.placeholder=type==='url'?'https://example.com/image.png':'Enter '+name.toLowerCase();input.disabled=true;row.classList.add('premium-locked');row.append(info,input);p.append(row)}
-const actions=el('div','actions'),msg=el('span','','');msg.style.color='#a6aec1';const btn=el('button','button primary','Apply appearance');btn.onclick=()=>msg.textContent='Connect Discord and the bot API to verify Premium access and apply changes.';actions.append(msg,btn);p.append(actions);content.append(p);
-
+ content.append(header('Bot Appearance','Bot profile and server appearance controls are not connected to a live configuration API yet.'));
+ const p=el('section','panel'),h=el('div','panel-head');
+ add(h,el('h2','','Bot identity preview'),el('p','','Premium appearance controls are shown for planning only. No changes are sent to Discord.'));
+ p.append(h);
+ const fields=[
+  ['Server nickname','text','Changes how the bot appears in the selected Discord server'],
+  ['Profile picture URL','url','Profile image changes require a supported bot-side endpoint'],
+  ['Banner image URL','url','Banner changes depend on Discord application capabilities'],
+  ['About me','textarea','Description changes require a supported bot-side endpoint']
+ ];
+ for(const [name,type,help] of fields){
+  const row=el('div','fieldrow'),info=el('div');
+  add(info,el('strong','',name),el('small','',help));info.append(el('span','premium-tag','✦ PREMIUM'));
+  const input=type==='textarea'?el('textarea','input'):el('input','input');
+  if(type!=='textarea')input.type=type==='url'?'url':'text';
+  input.placeholder='Not available yet';input.disabled=true;
+  row.classList.add('premium-locked');row.append(info,input);p.append(row);
+ }
+ const actions=el('div','actions'),msg=el('span','','Appearance updates are unavailable until the bot API and Premium checks are implemented.');
+ msg.style.color='#a6aec1';msg.style.fontSize='12px';
+ const btn=el('button','button primary','Not available yet');btn.type='button';btn.disabled=true;
+ actions.append(msg,btn);p.append(actions);content.append(p);
 }
 function aiStudio(){
-content.append(header('AI Assistant','A dedicated AI workspace with transparent usage limits, model selection, and premium controls.'));
+content.append(header('AI Assistant','AI configuration preview. This dashboard does not currently expose a live settings or usage API.'));
 const plans=el('div','ai-plans');
 for(const [tier,price,details,features] of [
-['Free','100 / day','100 AI messages per server per UTC day',['Standard AI model','Basic channel configuration','Daily allowance resets at 00:00 UTC']],
+['Free','100 / day','Planned allowance shown for reference; live usage is not available in this dashboard.',['Standard AI model','Basic channel configuration','Usage status must be confirmed by the bot']],
 ['Premium','Coming soon','Higher limits and advanced features',['Advanced AI model selection','Custom personality and expanded memory','Priority processing']]]){
 const card=el('article','card ai-plan'+(tier==='Premium'?' premium-plan':''));
 const tag=el('div','eyebrow',tier==='Premium'?'✦ Destiny PREMIUM':'Destiny FREE');
 const heading=el('h2','',price);const p=el('p','',details);
 card.append(tag,heading,p);
 for(const f of features){const item=el('div','ai-benefit','✓  '+f);card.append(item)}
-const foot=el('div','ai-plan-foot',tier==='Premium'?'Premium subscriptions not configured':'Default plan');card.append(foot);plans.append(card)}
+const foot=el('div','ai-plan-foot',tier==='Premium'?'Premium subscriptions not configured':'Usage status unavailable');card.append(foot);plans.append(card)}
 content.append(plans);
 const usage=el('section','panel ai-usage'),head=el('div','panel-head');
 add(head,el('h2','','Daily AI usage'),el('p','','Free plan: 100 messages per server per UTC day. Usage must be measured by the running bot.'));
 usage.append(head);
-const body=el('div','usage-body');add(body,el('div','usage-top','Messages remaining: unavailable until connected'),el('div','usage-track'));const note=el('small','','The bot is not connected, so no real usage counter or quota enforcement is active on this website.');body.append(note);usage.append(body);content.append(usage);
-const panel=el('section','panel'),ph=el('div','panel-head');add(ph,el('h2','','AI configuration'),el('p','','Choose the AI experience for your server. Changes require a connected, authenticated bot backend.'));panel.append(ph);
+const body=el('div','usage-body');add(body,el('div','usage-top','Live usage: unavailable'),el('div','usage-track'));const note=el('small','','The dashboard API does not currently provide usage telemetry, so no remaining-message count is displayed.');body.append(note);usage.append(body);content.append(usage);
+const panel=el('section','panel'),ph=el('div','panel-head');add(ph,el('h2','','AI configuration preview'),el('p','','These controls are read-only until a supported, permission-checked AI settings endpoint is available.'));panel.append(ph);
 for(const [label,kind,help,premium] of [
 ['AI status','toggle','Enable AI responses',false],
 ['AI channel','text','Discord channel ID where AI can reply',false],
@@ -344,8 +395,8 @@ for(const [label,kind,help,premium] of [
 ['Advanced model','select','Premium: additional models when backend supports them',true]]){
 const row=el('div','fieldrow'),info=el('div');add(info,el('strong','',label),el('small','',help));if(premium)info.append(el('span','premium-tag','✦ PREMIUM'));let input;
 if(kind==='toggle'){input=el('button','toggle');input.type='button';input.setAttribute('aria-label',label);input.setAttribute('aria-pressed','false');input.onclick=()=>{input.classList.toggle('on');input.setAttribute('aria-pressed',String(input.classList.contains('on')))}}else if(kind==='textarea'){input=el('textarea','input');input.placeholder='Premium customization'}else if(kind==='select'){input=el('select','input');const option=el('option','',premium?'Available with Premium':'Current bot model (server managed)');input.append(option)}else{input=el('input','input');input.placeholder='Select after connecting Discord'}
-if(premium){input.disabled=true;row.classList.add('premium-locked')}row.append(info,input);panel.append(row)}
-const actions=el('div','actions');const msg=el('span','','');msg.style.color='#a6aec1';const save=el('button','button primary','Save AI settings');save.onclick=()=>msg.textContent='Connect the bot API to save and enforce AI settings.';actions.append(msg,save);panel.append(actions);content.append(panel,el('div','alert','The 100-message Free quota is a planned server-side rule, not currently enforced. A secure bot-side counter, plan validation, and UTC daily reset must be implemented before launch. Premium access is not sold or charged here.'));
+input.disabled=true;row.classList.add('premium-locked');row.append(info,input);panel.append(row)}
+const actions=el('div','actions');const msg=el('span','','');msg.style.color='#a6aec1';const save=el('button','button primary','Not available yet');save.type='button';save.disabled=true;msg.textContent='Preview only · no AI preferences are saved from this page.';actions.append(msg,save);panel.append(actions);content.append(panel,el('div','alert','No AI configuration is sent from this panel. The dashboard does not expose a live usage meter or a verified plan-status endpoint. Premium subscriptions are not configured here.'));
 }
 
 // Premium catalog reflects bot feature gates. Website controls are previews until
