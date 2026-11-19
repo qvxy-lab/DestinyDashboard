@@ -309,8 +309,93 @@ async function civilianExpirySettings(){
   content.append(el('div','alert','Could not load this server’s settings: '+(error.message||'Unknown error.')+'. Redeploy the latest bot if the endpoint is unavailable.'));
  }
 }
+
+function moduleAccessNotice(){
+ if(authLoading){content.append(el('div','alert','Checking your Discord session…'));return false}
+ if(!currentUser||!sessionToken){content.append(el('div','alert','Sign in with Discord to manage this server.'));const b=el('button','button primary','Login with Discord');b.onclick=loginDiscord;content.append(b);return false}
+ if(!selectedGuild){content.append(el('div','alert','Select a server from My Servers first.'));const b=el('button','button primary','Choose a server');b.onclick=()=>go('My Servers');content.append(b);return false}
+ return true;
+}
+function moduleField(panel,label,help,control){
+ const row=el('div','fieldrow'),info=el('div');
+ add(info,el('strong','',label),el('small','',help));row.append(info,control);panel.append(row);return row;
+}
+async function autoroleSettings(){
+ content.append(header('Autoroles','Choose which roles Destiny assigns automatically when members or bots join.'));
+ if(!moduleAccessNotice())return;
+ const guildId=selectedGuild.id,panel=el('section','panel'),head=el('div','panel-head');
+ add(head,el('h2','','Live configuration'),el('p','','Loading saved roles from the bot…'));panel.append(head);content.append(panel);
+ try{
+  const data=await authApi('/guilds/'+encodeURIComponent(guildId)+'/modules/autoroles');
+  if(current!=='Autoroles'||selectedGuild?.id!==guildId)return;
+  head.querySelector('p').textContent='Changes are saved to Destiny and apply only to '+(data.guildName||selectedGuild.name)+'.';
+  const roles=Array.isArray(data.roles)?data.roles:[];
+  const values={memberRoleIds:data.settings?.memberRoleIds||[],botRoleIds:data.settings?.botRoleIds||[]};
+  function rolePicker(label,help,key){
+   const select=el('select','input');select.multiple=true;select.size=Math.min(7,Math.max(3,roles.length));select.style.minWidth='220px';
+   for(const role of roles){const option=el('option','',role.name+' · '+role.id);option.value=role.id;option.selected=values[key].includes(role.id);select.append(option)}
+   select.onchange=()=>{values[key]=[...select.selectedOptions].map(o=>o.value)};
+   moduleField(panel,label,help+' Hold Ctrl/Cmd to select multiple roles.',select);
+  }
+  rolePicker('Member autoroles','Assigned to human members when they join. Up to five roles.','memberRoleIds');
+  rolePicker('Bot autoroles','Assigned to bots when they join. Up to five roles.','botRoleIds');
+  const actions=el('div','actions'),status=el('span','','');status.setAttribute('role','status');status.style.flex='1';status.style.fontSize='12px';status.style.color='#b9c6d8';
+  const save=el('button','button primary','Save changes');
+  save.onclick=async()=>{
+   if(values.memberRoleIds.length>5||values.botRoleIds.length>5){status.textContent='Choose no more than five roles in each list.';return}
+   save.disabled=true;save.textContent='Saving…';status.textContent='Saving to Destiny…';
+   try{const result=await authApi('/guilds/'+encodeURIComponent(guildId)+'/modules/autoroles',{method:'PUT',body:JSON.stringify(values)});status.textContent=result.ok?'Saved. New joins will use these roles.':'Save not confirmed.';status.style.color='#b3e4c8';window.DestinyUI?.sound('success')}
+   catch(error){status.textContent='Not saved: '+(error.message||'Unknown error.');status.style.color='#f4b7b7';window.DestinyUI?.sound('error')}
+   finally{save.disabled=false;save.textContent='Save changes'}
+  };
+  actions.append(status,save);panel.append(actions);
+  content.append(el('div','alert','Destiny needs Manage Roles, and each selected role must be below its highest role. Empty lists disable that autorole type.'));
+ }catch(error){if(current!=='Autoroles'||selectedGuild?.id!==guildId)return;head.querySelector('p').textContent='Unable to load autorole settings.';content.append(el('div','alert','Could not load this server’s settings: '+(error.message||'Unknown error.')))}
+}
+async function nicknameSyncSettings(){
+ content.append(header('Nickname Sync','Configure role-based nickname templates and apply the rules to existing members.'));
+ if(!moduleAccessNotice())return;
+ const guildId=selectedGuild.id,panel=el('section','panel'),head=el('div','panel-head');
+ add(head,el('h2','','Live configuration'),el('p','','Loading nickname rules from Destiny…'));panel.append(head);content.append(panel);
+ try{
+  const data=await authApi('/guilds/'+encodeURIComponent(guildId)+'/modules/nickname-sync');
+  if(current!=='Nickname Sync'||selectedGuild?.id!==guildId)return;
+  head.querySelector('p').textContent='Changes are saved to Destiny for '+(data.guildName||selectedGuild.name)+'. The highest matching configured role wins.';
+  const roles=Array.isArray(data.roles)?data.roles:[];
+  let rules=(data.settings?.rules||[]).map(r=>({roleId:r.roleId,template:r.template}));
+  const list=el('div');panel.append(list);
+  function renderRules(){
+   list.replaceChildren();
+   if(!rules.length)list.append(el('p','muted','No nickname rules configured. Add a rule to begin.'));
+   rules.forEach((rule,index)=>{
+    const row=el('div','fieldrow'),wrap=el('div');wrap.style.display='grid';wrap.style.gridTemplateColumns='minmax(150px,1fr) minmax(180px,1.4fr) auto';wrap.style.gap='10px';wrap.style.width='100%';
+    const select=el('select','input');const empty=el('option','','Choose role');empty.value='';select.append(empty);
+    for(const role of roles){const o=el('option','',role.name);o.value=role.id;o.selected=role.id===rule.roleId;select.append(o)}
+    select.onchange=()=>rule.roleId=select.value;
+    const input=el('input','input');input.placeholder='e.g. [VIP] {username}';input.value=rule.template;input.maxLength=80;input.oninput=()=>rule.template=input.value;
+    const remove=el('button','button','Remove');remove.type='button';remove.onclick=()=>{rules.splice(index,1);renderRules()};
+    wrap.append(select,input,remove);row.append(wrap);list.append(row);
+   });
+  }
+  renderRules();
+  const addRule=el('button','button','＋ Add nickname rule');addRule.type='button';addRule.onclick=()=>{if(rules.length>=50)return;rules.push({roleId:'',template:'{username}'});renderRules()};panel.append(addRule);
+  const actions=el('div','actions'),status=el('span','','');status.setAttribute('role','status');status.style.flex='1';status.style.fontSize='12px';status.style.color='#b9c6d8';
+  const save=el('button','button primary','Save & sync members');
+  save.onclick=async()=>{
+   if(rules.some(r=>!r.roleId||!r.template.trim()||!/\{username\}/i.test(r.template))){status.textContent='Each rule needs a role and a template containing {username}.';return}
+   save.disabled=true;save.textContent='Saving…';status.textContent='Saving rules and syncing existing members…';
+   try{const result=await authApi('/guilds/'+encodeURIComponent(guildId)+'/modules/nickname-sync',{method:'PUT',body:JSON.stringify({rules})});const sync=result.settings?.sync;status.textContent=sync&&typeof sync==='object'?'Saved. Updated: '+(sync.updated||0)+', unchanged: '+(sync.unchanged||0)+', skipped: '+(sync.skipped||0)+', failed: '+(sync.failed||0)+'.': 'Rules saved. Existing members could not be fully synced.';status.style.color='#b3e4c8';window.DestinyUI?.sound('success')}
+   catch(error){status.textContent='Not saved: '+(error.message||'Unknown error.');status.style.color='#f4b7b7';window.DestinyUI?.sound('error')}
+   finally{save.disabled=false;save.textContent='Save & sync members'}
+  };
+  actions.append(status,save);panel.append(actions);
+  content.append(el('div','alert','Templates must include {username} and produce a nickname no longer than 32 characters. Destiny needs Manage Nicknames. Members with multiple configured roles use the highest role’s rule.'));
+ }catch(error){if(current!=='Nickname Sync'||selectedGuild?.id!==guildId)return;head.querySelector('p').textContent='Unable to load nickname settings.';content.append(el('div','alert','Could not load this server’s settings: '+(error.message||'Unknown error.')))}
+}
 function settings(name){
  if(name==='Welcome & Goodbye'){void welcomeSettings();return}
+ if(name==='Autoroles'){void autoroleSettings();return}
+ if(name==='Nickname Sync'){void nicknameSyncSettings();return}
  if(name==='AI Assistant'){aiStudio();return}
  if(name==='Bot Appearance'){botAppearance();return}
  content.append(header(name,sections.find(x=>x[0]===name)?.[3]||'Manage settings'));
