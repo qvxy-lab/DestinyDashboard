@@ -29,6 +29,10 @@ jobs:
           cp documents.html _site/documents.html
           cp shop.html _site/shop.html
           cp assets/destiny-eagle.svg _site/assets/destiny-eagle.svg
+          cp assets/site-refinement.css _site/assets/site-refinement.css
+          cp assets/dashboard-refinement.css _site/assets/dashboard-refinement.css
+          cp assets/dashboard-enhancements.css _site/assets/dashboard-enhancements.css
+          cp assets/dashboard-enhancements.js _site/assets/dashboard-enhancements.js
           cp destiny-config.js _site/destiny-config.js
           touch _site/.nojekyll
       - name: Set public authentication API URL
