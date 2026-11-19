@@ -1,0 +1,101 @@
+
+/* Shared Destiny visual language for the public pages. */
+:root {
+  --destiny-ice: #dce6f4;
+  --destiny-edge: rgba(194, 210, 232, .18);
+  --destiny-muted: #9ba8ba;
+  --destiny-glass: rgba(17, 21, 28, .72);
+}
+html { scrollbar-color: #465366 #080a0e; }
+body {
+  background-color: #080a0e;
+  background-attachment: fixed;
+}
+::selection { background: #c5d2e5; color: #080b10; }
+a, button { -webkit-tap-highlight-color: transparent; }
+a:focus-visible, button:focus-visible, summary:focus-visible {
+  outline: 2px solid #d4e1f3;
+  outline-offset: 4px;
+  border-radius: 7px;
+}
+.bg, .bg-grid { pointer-events: none; }
+nav, .nav {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  backdrop-filter: blur(20px) saturate(125%);
+  -webkit-backdrop-filter: blur(20px) saturate(125%);
+  background: linear-gradient(180deg, rgba(8,10,14,.91), rgba(8,10,14,.72));
+  border-bottom-color: rgba(204, 218, 239, .14);
+}
+.brand-icon, .brand img {
+  box-shadow: inset 0 1px rgba(255,255,255,.12), 0 8px 24px rgba(0,0,0,.26), 0 0 24px rgba(180,199,229,.055);
+}
+.brand-icon img, .brand img { filter: drop-shadow(0 2px 7px rgba(218,231,249,.18)); }
+.nav-right a, .nav-links a, .nav-actions a, .back {
+  transition: color .2s ease, border-color .2s ease, background .2s ease, transform .2s ease, box-shadow .2s ease;
+}
+.nav-right a:hover, .nav-links a:hover { color: #fff; }
+.nav-right .nav-enter:hover, .nav-shop:hover, .nav-cta:hover, .nav-actions a:hover, .back:hover {
+  border-color: rgba(221,233,249,.58);
+  box-shadow: 0 8px 25px rgba(0,0,0,.2), 0 0 20px rgba(183,203,233,.055);
+}
+.action, .btn, .cta a, .nav-cta, .nav-enter, .shop-preview-link {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+}
+.action:focus-visible, .btn:focus-visible, .cta a:focus-visible {
+  outline-offset: 4px;
+}
+.hero-copy, .hero-visual, .hero-art, .shop-preview, .plan, .feature, .tile, .note, .cta {
+  will-change: auto;
+}
+.hero-visual, .hero-art { filter: drop-shadow(0 16px 32px rgba(0,0,0,.13)); }
+.plan, .feature, .tile {
+  box-shadow: 0 14px 38px rgba(0,0,0,.12), inset 0 1px rgba(255,255,255,.025);
+}
+.plan:hover, .feature:hover, .tile:hover {
+  box-shadow: 0 20px 48px rgba(0,0,0,.24), 0 0 25px rgba(185,204,232,.055), inset 0 1px rgba(255,255,255,.04);
+}
+.plan.premium {
+  box-shadow: 0 22px 55px rgba(0,0,0,.28), 0 0 38px rgba(173,196,229,.075), inset 0 1px rgba(255,255,255,.075);
+}
+.notice, .note, .cta, .final {
+  box-shadow: inset 0 1px rgba(255,255,255,.035), 0 12px 34px rgba(0,0,0,.12);
+}
+.section { scroll-margin-top: 110px; }
+.layout section { scroll-margin-top: 112px; }
+aside a[aria-current="location"] {
+  color: #f4f7fc;
+  background: linear-gradient(100deg, rgba(196,213,238,.12), rgba(196,213,238,.035));
+  box-shadow: inset 2px 0 #c4d2e5, inset 0 0 0 1px rgba(210,225,246,.06);
+}
+.faq details { transition: background .2s ease, border-color .2s ease; }
+.faq details[open] { background: linear-gradient(90deg, rgba(190,208,235,.045), transparent 75%); }
+.faq summary { padding: 2px 4px; }
+.faq summary::after { transition: transform .2s ease; }
+.faq details[open] summary::after { transform: rotate(180deg); }
+footer { border-top-color: rgba(203,217,237,.14); }
+.shop-preview {
+  border: 1px solid rgba(194,210,232,.16);
+  border-radius: 18px;
+  background: linear-gradient(130deg, rgba(28,35,46,.62), rgba(12,15,20,.45));
+  box-shadow: inset 0 1px rgba(255,255,255,.035), 0 18px 45px rgba(0,0,0,.16);
+}
+.shop-preview-link {
+  border: 1px solid rgba(197,214,239,.25);
+  border-radius: 10px;
+  padding: 11px 14px;
+  background: rgba(225,235,249,.07);
+  transition: transform .2s ease, border-color .2s ease, background .2s ease;
+}
+.shop-preview-link:hover { transform: translateY(-2px); border-color: rgba(221,233,249,.55); background: rgba(225,235,249,.12); }
+@media (max-width: 780px) {
+  nav, .nav { position: relative; top: auto; }
+  .section, .layout section { scroll-margin-top: 24px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
+}
