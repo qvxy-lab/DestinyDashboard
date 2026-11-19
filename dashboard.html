@@ -425,7 +425,7 @@ function settings(name){
  msg.style.color='#a6aec1';msg.style.fontSize='12px';
  const save=el('button','button primary','Not available yet');save.type='button';save.disabled=true;
  actions.append(msg,save);panel.append(actions);content.append(panel);
- const alert=el('div','alert','Live dashboard settings currently include Welcome & Goodbye and Unprepared Civilian. Other modules remain read-only until their bot-side configuration APIs are implemented.');
+ const alert=el('div','alert','Live dashboard settings currently include Welcome & Goodbye, Unprepared Civilian, Autoroles and Nickname Sync. Other modules remain read-only until their bot-side configuration APIs are implemented.');
  content.append(alert);
 }
 function botAppearance(){
