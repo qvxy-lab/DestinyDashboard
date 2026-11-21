@@ -150,3 +150,205 @@ body:after{
  *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;scroll-behavior:auto!important;transition-duration:.01ms!important}
  .card:hover,.feature:hover,.navitem:hover{transform:none}
 }
+
+/* Responsive layout and mobile navigation repair */
+html {
+  width: 100%;
+  min-width: 320px;
+  overflow-x: clip;
+  -webkit-text-size-adjust: 100%;
+}
+body {
+  width: 100%;
+  min-width: 320px;
+  overflow-x: clip;
+}
+.app {
+  /* Do not create a stacking context: the fixed mobile drawer must sit
+     above its backdrop while the rest of the page remains dimmed. */
+  position: relative;
+  z-index: auto !important;
+  width: 100%;
+  min-width: 0;
+  min-height: 100vh;
+  min-height: 100svh;
+}
+.main,
+#content {
+  min-width: 0;
+  width: 100%;
+}
+.content {
+  width: 100%;
+  max-width: 1450px;
+  min-width: 0;
+  margin-inline: auto;
+}
+img, svg, video, canvas {
+  max-width: 100%;
+}
+.catalog,
+.stats,
+.feature-grid,
+.split {
+  min-width: 0;
+}
+.command {
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+.navscroll {
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow-y: auto;
+  overflow-x: hidden;
+  overscroll-behavior: contain;
+  -webkit-overflow-scrolling: touch;
+  touch-action: pan-y;
+  scrollbar-gutter: stable;
+}
+.logo,
+.server-select,
+.sidebar-foot {
+  flex-shrink: 0;
+}
+
+@media (max-width: 760px) {
+  .app {
+    min-height: 100vh;
+    min-height: 100svh;
+  }
+  .sidebar {
+    position: fixed;
+    z-index: 10;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    width: min(320px, 88vw);
+    height: 100vh;
+    height: 100dvh;
+    max-height: 100dvh;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+    overscroll-behavior: contain;
+  }
+  .sidebar.open {
+    transform: translateX(0);
+  }
+  .overlay.open {
+    display: block;
+    position: fixed;
+    z-index: 9;
+    inset: 0;
+    background: rgba(0, 0, 0, .62);
+    -webkit-tap-highlight-color: transparent;
+  }
+  .navscroll {
+    flex: 1 1 0%;
+    min-height: 0;
+    height: 0;
+    padding-bottom: 14px;
+    overscroll-behavior-y: contain;
+  }
+  .topbar {
+    width: 100%;
+    min-width: 0;
+    min-height: 64px;
+    height: auto;
+    padding: 10px 12px;
+    gap: 8px;
+  }
+  .topbar > div:first-child {
+    min-width: 0;
+    gap: 8px !important;
+  }
+  .right {
+    flex: 0 0 auto;
+    min-width: 0;
+    gap: 6px;
+  }
+  .content {
+    width: 100%;
+    max-width: 100%;
+    padding: clamp(18px, 5vw, 28px) clamp(12px, 4vw, 18px) 60px;
+  }
+  .pagehead {
+    align-items: flex-start;
+    gap: 12px;
+  }
+  .stats {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .feature-grid,
+  .split,
+  .catalog {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .toolbar {
+    min-width: 0;
+    flex-wrap: wrap;
+  }
+  .toolbar .input {
+    min-width: 0;
+    max-width: 100%;
+  }
+  .fieldrow {
+    min-width: 0;
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .fieldrow > * {
+    min-width: 0;
+  }
+  .panel,
+  .card,
+  .command {
+    min-width: 0;
+    max-width: 100%;
+  }
+}
+
+@media (max-width: 420px) {
+  .topbar {
+    padding-inline: 10px;
+  }
+  .topbar > div:first-child {
+    gap: 6px !important;
+  }
+  .right .button {
+    max-width: 126px;
+    padding: 9px 8px;
+    font-size: 11px;
+    white-space: nowrap;
+  }
+  .right .avatar {
+    width: 32px;
+    height: 32px;
+    flex: 0 0 32px;
+  }
+  .stats {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .pagehead h1 {
+    font-size: clamp(25px, 8vw, 32px);
+  }
+}
+
+@media (min-width: 761px) {
+  .sidebar {
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    height: 100svh;
+    overflow: hidden;
+  }
+  .navscroll {
+    flex: 1 1 auto;
+    min-height: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+}
