@@ -1,3 +1,12 @@
+# Destiny API Server Scaffold
+
+> **Deployment status:** This Express/TypeScript service is an experimental backend scaffold and is **not currently used by the published Destiny dashboard**. The live dashboard currently calls the OAuth and guild-scoped configuration API embedded in the Discord bot process at `https://destiny.fadehost.app` through `destiny-oauth.js` in the `USOTF-Manager` repository.
+
+Do not deploy this scaffold as a replacement for the live API, change the dashboard's public API URL, or move production Discord credentials here without a reviewed migration plan. The live bot API currently owns Discord OAuth, server discovery, Welcome & Goodbye, Unsecured Role expiry, Autoroles, and Nickname Sync settings.
+
+The remainder of this document describes the scaffold's intended setup if a future migration is approved. It is not a description of the current production deployment.
+
+---
 # Destiny Discord Login API
 
 The **Discord login and multi-server listing implementation** lives in `src/routes/discord.ts`. The static dashboard is deployed through GitHub Pages. The API **must** run on a separate publicly reachable HTTPS server because GitHub Pages cannot execute backend code.
