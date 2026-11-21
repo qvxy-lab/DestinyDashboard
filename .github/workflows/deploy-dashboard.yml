@@ -31,6 +31,8 @@ jobs:
           cp assets/destiny-eagle.svg _site/assets/destiny-eagle.svg
           cp assets/site-refinement.css _site/assets/site-refinement.css
           cp assets/dashboard-refinement.css _site/assets/dashboard-refinement.css
+          cp assets/dashboard-premium.css _site/assets/dashboard-premium.css
+          cp assets/destiny-v2.css _site/assets/destiny-v2.css
           cp assets/dashboard-enhancements.css _site/assets/dashboard-enhancements.css
           cp assets/dashboard-enhancements.js _site/assets/dashboard-enhancements.js
           cp destiny-config.js _site/destiny-config.js
