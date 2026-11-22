@@ -571,7 +571,9 @@ async function giveawaySettings(){
  try{
   const data=await authApi('/guilds/'+encodeURIComponent(guildId)+'/modules/giveaways');
   if(current!=='Giveaways'||selectedGuild?.id!==guildId)return;
-  const channels=Array.isArray(data.channels)?data.channels:[];
+  // The generic module API wraps adapter output inside `settings`.
+  // Keep the top-level fallback for compatibility with older API responses.
+  const channels=Array.isArray(data.settings?.channels)?data.settings.channels:(Array.isArray(data.channels)?data.channels:[]);
   const giveaways=Array.isArray(data.settings?.giveaways)?data.settings.giveaways:[];
   head.querySelector('p').textContent='Publishing to '+(data.guildName||selectedGuild.name)+'. Active giveaways are synchronized with the bot.';
   const form=el('div','giveaway-create-form');
@@ -593,7 +595,8 @@ async function giveawaySettings(){
   const channel=el('select','input');channel.setAttribute('aria-label','Giveaway channel');
   for(const item of channels){const option=el('option','','# '+item.name);option.value=item.id;channel.append(option)}
   channel.value=values.channelId;channel.onchange=()=>values.channelId=channel.value;
-  field('Publish channel','Destiny needs View Channel, Send Messages and Embed Links.',channel);
+  channel.disabled=channels.length===0;
+  field('Publish channel',channels.length?'Only channels where Destiny can view, send messages and embed links are listed.':'No eligible text channels were returned. Check Destiny\'s channel permissions and refresh.',channel);
   const actions=el('div','actions'),status=el('span','','');status.setAttribute('role','status');status.style.flex='1';status.style.fontSize='12px';status.style.color='#b9c6d8';
   const create=el('button','button primary','Create giveaway');
   create.disabled=!channels.length;
