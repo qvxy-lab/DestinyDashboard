@@ -438,8 +438,9 @@ async function welcomeSettings(){
    media.append(mediaIntro);
    const drop=el('div','welcome-dropzone');
    drop.tabIndex=0;drop.setAttribute('role','button');drop.setAttribute('aria-label','Upload or paste a greeting image');
-   add(drop,el('span','welcome-drop-icon','＋'),el('strong','','Drop or paste an image here'),el('small','','Click to browse files · Ctrl + V to paste from clipboard'));
+   add(drop,el('span','welcome-drop-icon','＋'),el('strong','','Drop or paste an image here'),el('small','','Focus this area and press Ctrl + V to paste from clipboard'));
    const file=el('input');file.type='file';file.accept='image/png,image/jpeg,image/webp,image/gif';file.hidden=true;
+   const browse=el('button','button','Choose image');browse.type='button';browse.onclick=event=>{event.stopPropagation();file.click()};drop.append(browse);
    const preview=el('div','welcome-image-preview');
    const caption=el('small','welcome-image-caption','');
    const url=el('input','input');url.type='url';url.placeholder='Paste a direct HTTPS image URL or Discord message link…';
@@ -466,8 +467,8 @@ async function welcomeSettings(){
     reader.readAsDataURL(image);
    }
    file.onchange=()=>acceptImage(file.files?.[0]);
-   drop.onclick=()=>file.click();
-   drop.addEventListener('keydown',event=>{if(event.key==='Enter'||event.key===' '){event.preventDefault();file.click()}});
+   drop.onclick=()=>drop.focus();
+   drop.addEventListener('keydown',event=>{if(event.key==='Enter'||event.key===' '){event.preventDefault();drop.focus()}});
    drop.addEventListener('dragover',event=>{event.preventDefault();drop.classList.add('dragging')});
    drop.addEventListener('dragleave',()=>drop.classList.remove('dragging'));
    drop.addEventListener('drop',event=>{event.preventDefault();drop.classList.remove('dragging');acceptImage(event.dataTransfer?.files?.[0])});
