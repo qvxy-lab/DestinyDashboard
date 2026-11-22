@@ -8,7 +8,34 @@ body:before{content:"";position:fixed;inset:0;pointer-events:none;z-index:0;opac
 .topbar{background:#08090bbd;backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px)}.content{animation:destinyEnter .65s cubic-bezier(.16,1,.3,1) both}
 .card,.panel,.command{background:linear-gradient(155deg,#17191c,#101113 72%);box-shadow:0 10px 36px #00000030,inset 0 1px 0 #ffffff0a}.card{position:relative;transform-style:preserve-3d;will-change:transform;transition:transform .42s cubic-bezier(.16,1,.3,1),box-shadow .42s,border-color .42s}.card:hover{transform:perspective(950px) translateY(-5px) rotateX(1.4deg);box-shadow:0 22px 55px #0009,0 0 0 1px #ffffff0c,inset 0 1px 0 #ffffff14;border-color:#6a6f79}.feature .symbol{background:linear-gradient(145deg,#343840,#1b1e22);box-shadow:inset 0 1px 0 #ffffff1b,0 8px 20px #0006}.feature .arrow{transition:transform .3s}.feature:hover .arrow{transform:translate(4px,-4px)}.navitem{transition:background .25s,color .25s,transform .35s cubic-bezier(.16,1,.3,1)}.navitem:hover{transform:translateX(4px)}.button{transition:transform .3s cubic-bezier(.16,1,.3,1),background .2s,box-shadow .3s}.button.primary:hover{box-shadow:0 9px 30px #d6dbe52b}.button:active,.feature:active{transform:scale(.975)}.input{background:#090a0c;border-color:#34373e}.input:focus{border-color:#b3b9c5;box-shadow:0 0 0 3px #ffffff12;outline:0}.toggle.on{background:#e5e8ee}.toggle.on:after{background:#17191d}.status{background:#22201e;color:#e3d1b8;border-color:#4a4037}.eyebrow{letter-spacing:.21em}.pagehead h1{letter-spacing:-.055em}.ai-plan.premium-plan{background:radial-gradient(ellipse at 90% -10%,#8994a327,transparent 62%),linear-gradient(145deg,#191b20,#0e1012);border-color:#4c515b}.premium-tag{background:#ffffff10;border-color:#ffffff30;color:#e4e8ef}.ai-plan-foot{color:#dce0e8}.badge{color:#dce0e8}
 @keyframes destinyEnter{from{opacity:0;transform:translateY(16px);filter:blur(3px)}to{opacity:1;transform:translateY(0);filter:blur(0)}}@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.content{animation:none}.card:hover{transform:none}}
-.server-empty{min-height:172px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;padding:30px;text-align:center}.server-empty-icon{width:48px;height:48px;border:1px solid #393c42;background:#1b1d21;border-radius:15px;display:grid;place-items:center;color:#cdd2dc;font-size:25px}.server-empty strong{font-size:14px}.server-empty p{color:var(--muted);margin:0;line-height:1.6}.server-select{transition:background .2s,transform .3s}.server-select:hover{background:#24262b;transform:translateY(-2px)}.login-notice{position:fixed;bottom:24px;right:24px;z-index:300;max-width:380px;border:1px solid #595d65;padding:21px 44px 20px 20px;background:#1b1d21;color:#f4f5f7;border-radius:15px;box-shadow:0 25px 90px #000a;animation:destinyEnter .3s ease-out}.login-notice strong{display:block;font-size:14px}.login-notice p{font-size:13px;color:#bec2cb;line-height:1.6;margin:9px 0 0}.login-close{background:none;border:0;color:#ced3dc;position:absolute;top:13px;right:14px;font-size:16px}@media(max-width:560px){.login-notice{left:15px;right:15px;bottom:15px}}.login-hero{max-width:760px;margin:0 auto;padding:55px 25px;text-align:center;background:radial-gradient(ellipse at 50% 0%,#ffffff12,transparent 70%),#111315}.login-hero h2{font:800 clamp(24px,3vw,34px) 'Plus Jakarta Sans';margin:17px 0 12px}.login-hero p{max-width:420px;margin:0 auto 24px;line-height:1.7;color:#a0a7b5}.login-hero .button{padding:14px 30px}.login-sigil{font-size:45px;color:#eff1f5}.identity-bar{background:#16181b;border:1px solid #32353b;border-radius:13px;padding:17px 20px;margin-bottom:20px;display:flex;justify-content:space-between;gap:12px;align-items:center}.identity-bar small{display:block;margin-top:6px;color:#aeb6c4}.guild-list{padding:12px 20px}.guild-item{display:flex;gap:15px;align-items:center;justify-content:space-between;padding:17px 3px;border-bottom:1px solid #2a2d34}.guild-item:last-child{border-bottom:0}.guild-info{display:flex;gap:12px;align-items:center;min-width:0}.guild-info strong{display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.guild-info small{display:block;margin-top:5px;color:#959eac}.guild-avatar{height:47px;width:47px;min-width:47px;border-radius:13px;background:linear-gradient(135deg,#454a54,#1f2229);display:flex;align-items:center;justify-content:center;font-weight:800;color:#fff;overflow:hidden}.guild-avatar img{height:100%;width:100%;object-fit:cover}@media(max-width:540px){.guild-item{align-items:flex-start;flex-direction:column}.guild-item button{margin-left:58px}}.destiny-install{display:block;margin:13px auto 0;background:#20242a;border:1px solid #484e58;color:#e8ebef}.destiny-install:hover{background:#31363d}.login-hero .destiny-install{padding:12px 23px}.back-brand{width:40px;height:40px;display:grid;place-items:center;border-radius:10px;background:linear-gradient(145deg,#222832,#090b0e);border:1px solid #393d47;transition:transform .22s ease,box-shadow .22s ease}.back-brand:hover{transform:rotate(-7deg) scale(1.05);box-shadow:0 0 25px #a5b2c728}.back-brand img{width:33px;height:33px;object-fit:contain}.back-home{font-size:12px;letter-spacing:.02em;display:inline-flex;gap:7px;align-items:center;text-decoration:none;color:#b8c0cd;border:1px solid #343841;padding:8px 11px;border-radius:9px;transition:.2s}.back-home:hover{color:white;border-color:#8e9cab;background:#ffffff08}@media(max-width:540px){.back-home{font-size:0;gap:0}.back-home span{font-size:16px}}</style><link rel="stylesheet" href="./assets/dashboard-enhancements.css?v=1"><link rel="stylesheet" href="./assets/dashboard-refinement.css?v=1"><link rel="stylesheet" href="./assets/dashboard-premium.css?v=3"><link rel="stylesheet" href="./assets/destiny-v2.css?v=2"></head><body><div class="overlay" id="overlay"></div>
+.server-empty{min-height:172px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;padding:30px;text-align:center}.server-empty-icon{width:48px;height:48px;border:1px solid #393c42;background:#1b1d21;border-radius:15px;display:grid;place-items:center;color:#cdd2dc;font-size:25px}.server-empty strong{font-size:14px}.server-empty p{color:var(--muted);margin:0;line-height:1.6}.server-select{transition:background .2s,transform .3s}.server-select:hover{background:#24262b;transform:translateY(-2px)}.login-notice{position:fixed;bottom:24px;right:24px;z-index:300;max-width:380px;border:1px solid #595d65;padding:21px 44px 20px 20px;background:#1b1d21;color:#f4f5f7;border-radius:15px;box-shadow:0 25px 90px #000a;animation:destinyEnter .3s ease-out}.login-notice strong{display:block;font-size:14px}.login-notice p{font-size:13px;color:#bec2cb;line-height:1.6;margin:9px 0 0}.login-close{background:none;border:0;color:#ced3dc;position:absolute;top:13px;right:14px;font-size:16px}@media(max-width:560px){.login-notice{left:15px;right:15px;bottom:15px}}.login-hero{max-width:760px;margin:0 auto;padding:55px 25px;text-align:center;background:radial-gradient(ellipse at 50% 0%,#ffffff12,transparent 70%),#111315}.login-hero h2{font:800 clamp(24px,3vw,34px) 'Plus Jakarta Sans';margin:17px 0 12px}.login-hero p{max-width:420px;margin:0 auto 24px;line-height:1.7;color:#a0a7b5}.login-hero .button{padding:14px 30px}.login-sigil{font-size:45px;color:#eff1f5}.identity-bar{background:#16181b;border:1px solid #32353b;border-radius:13px;padding:17px 20px;margin-bottom:20px;display:flex;justify-content:space-between;gap:12px;align-items:center}.identity-bar small{display:block;margin-top:6px;color:#aeb6c4}.guild-list{padding:12px 20px}.guild-item{display:flex;gap:15px;align-items:center;justify-content:space-between;padding:17px 3px;border-bottom:1px solid #2a2d34}.guild-item:last-child{border-bottom:0}.guild-info{display:flex;gap:12px;align-items:center;min-width:0}.guild-info strong{display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.guild-info small{display:block;margin-top:5px;color:#959eac}.guild-avatar{height:47px;width:47px;min-width:47px;border-radius:13px;background:linear-gradient(135deg,#454a54,#1f2229);display:flex;align-items:center;justify-content:center;font-weight:800;color:#fff;overflow:hidden}.guild-avatar img{height:100%;width:100%;object-fit:cover}@media(max-width:540px){.guild-item{align-items:flex-start;flex-direction:column}.guild-item button{margin-left:58px}}.destiny-install{display:block;margin:13px auto 0;background:#20242a;border:1px solid #484e58;color:#e8ebef}.destiny-install:hover{background:#31363d}.login-hero .destiny-install{padding:12px 23px}.back-brand{width:40px;height:40px;display:grid;place-items:center;border-radius:10px;background:linear-gradient(145deg,#222832,#090b0e);border:1px solid #393d47;transition:transform .22s ease,box-shadow .22s ease}.back-brand:hover{transform:rotate(-7deg) scale(1.05);box-shadow:0 0 25px #a5b2c728}.back-brand img{width:33px;height:33px;object-fit:contain}.back-home{font-size:12px;letter-spacing:.02em;display:inline-flex;gap:7px;align-items:center;text-decoration:none;color:#b8c0cd;border:1px solid #343841;padding:8px 11px;border-radius:9px;transition:.2s}.back-home:hover{color:white;border-color:#8e9cab;background:#ffffff08}@media(max-width:540px){.back-home{font-size:0;gap:0}.back-home span{font-size:16px}}
+/* Independent Welcome / Goodbye control panels */
+.welcome-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px;align-items:start;margin-top:4px}
+.welcome-card{min-width:0;overflow:hidden;background:rgba(17,22,31,.72);border:1px solid rgba(205,218,238,.14);backdrop-filter:blur(22px) saturate(145%);-webkit-backdrop-filter:blur(22px) saturate(145%);box-shadow:0 18px 48px rgba(0,0,0,.22)}
+.welcome-panel-head{padding:23px 24px 19px;border-bottom:1px solid rgba(205,218,238,.11);display:flex;justify-content:space-between;align-items:flex-start;gap:14px;background:linear-gradient(125deg,rgba(255,255,255,.055),transparent 70%)}
+.welcome-panel-head h2{font:800 21px 'Plus Jakarta Sans';margin:8px 0 6px;letter-spacing:-.025em}
+.welcome-panel-head p{margin:0;color:var(--muted);line-height:1.6;max-width:360px}
+.welcome-panel-body{padding:2px 22px 20px}
+.welcome-card .fieldrow{padding:17px 2px;grid-template-columns:1fr;gap:9px;border-bottom:1px solid rgba(205,218,238,.09)}
+.welcome-card .fieldrow>div:first-child strong{font-size:13px}
+.welcome-card .fieldrow>div:first-child small{line-height:1.5}
+.welcome-card textarea.input{min-height:84px}
+.welcome-media{min-width:0;display:grid;gap:10px}
+.welcome-media-intro strong{font-size:13px}.welcome-media-intro p{font-size:12px;color:var(--muted);line-height:1.55;margin:5px 0 0}
+.welcome-dropzone{min-height:118px;border:1px dashed rgba(190,205,227,.36);border-radius:13px;background:rgba(255,255,255,.025);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;text-align:center;padding:18px;cursor:pointer;transition:.2s}
+.welcome-dropzone:hover,.welcome-dropzone.dragging{border-color:#c3d2e7;background:rgba(190,205,227,.08)}
+.welcome-dropzone:focus-visible{outline:2px solid #c3d2e7;outline-offset:3px}
+.welcome-drop-icon{font-size:25px;line-height:1;color:#d5dfec}.welcome-dropzone strong{font-size:13px}.welcome-dropzone small,.welcome-image-caption{color:var(--muted);font-size:11px;line-height:1.5}
+.welcome-image-preview{height:130px;border:1px solid rgba(205,218,238,.12);background:rgba(0,0,0,.18);border-radius:11px;overflow:hidden;display:flex;align-items:center;justify-content:center;text-align:center;padding:12px;color:var(--muted);font-size:12px}
+.welcome-image-preview img{width:100%;height:100%;object-fit:cover}.welcome-image-controls{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:8px;align-items:center}
+.welcome-image-controls .button{white-space:nowrap;padding:10px 12px}
+.welcome-options{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;padding:16px 0;border-bottom:1px solid rgba(205,218,238,.09)}
+.welcome-option{display:flex;align-items:center;justify-content:space-between;gap:9px;min-width:0;padding:10px 11px;border:1px solid rgba(205,218,238,.1);border-radius:11px;background:rgba(255,255,255,.025)}
+.welcome-option strong{font-size:11px;display:block}.welcome-option small{font-size:10px;line-height:1.4;color:var(--muted);display:block;margin-top:4px}
+.welcome-option .toggle{flex-shrink:0}.welcome-actions{padding:16px 0 0;flex-wrap:wrap}.welcome-actions .button{padding:10px 12px}
+@media(max-width:1050px){.welcome-grid{grid-template-columns:1fr}}
+@media(max-width:540px){.welcome-panel-head{padding:19px 16px}.welcome-panel-body{padding:2px 15px 16px}.welcome-options{grid-template-columns:1fr}.welcome-image-controls{grid-template-columns:1fr}.welcome-actions{gap:7px}.welcome-actions .button{font-size:12px}}
+</style><link rel="stylesheet" href="./assets/dashboard-enhancements.css?v=1"><link rel="stylesheet" href="./assets/dashboard-refinement.css?v=1"><link rel="stylesheet" href="./assets/dashboard-premium.css?v=3"><link rel="stylesheet" href="./assets/destiny-v2.css?v=2"></head><body><div class="overlay" id="overlay"></div>
 <div class="app app-shell" id="app-shell">
   <aside class="sidebar" id="sidebar" aria-label="Main navigation">
     <div class="logo sidebar-brand">
@@ -309,138 +336,218 @@ function overview(){
 }
 
 async function welcomeSettings(){
-    content.append(header('Welcome & Goodbye', 'Configure real welcome and departure messages for your selected Discord server.'));
-    if(authLoading){
-        content.append(el('div','alert','Checking your Discord session…'));
-        return;
+ content.append(header('Welcome & Goodbye','Build two independent greeting experiences. Configure the message, destination and artwork separately for members joining and leaving.'));
+ if(!moduleAccessNotice())return;
+ const guildId=selectedGuild.id;
+ const loading=el('div','alert','Loading greeting settings and available channels from Destiny…');
+ content.append(loading);
+ try{
+  const data=await authApi('/guilds/'+encodeURIComponent(guildId)+'/welcome');
+  if(current!=='Welcome & Goodbye'||selectedGuild?.id!==guildId)return;
+  loading.remove();
+  const settings=data.settings||{},channels=Array.isArray(data.channels)?data.channels:[];
+  const states={
+   welcome:{
+    channelId:settings.welcomeChannelId||'',message:settings.welcomeMessage||'',
+    title:settings.welcomeTitle||'WELCOME',description:settings.welcomeDescription||"We're glad you're here.",
+    imageLink:settings.welcomeImageLink||'',imageData:'',imageConfigured:Boolean(settings.welcomeImageConfigured),
+    imageClear:false,showAvatar:settings.welcomeShowAvatar!==false,
+    showUsername:settings.welcomeShowUsername!==false,showFooter:settings.welcomeShowFooter!==false,
+    blur:Boolean(settings.welcomeBlur)
+   },
+   goodbye:{
+    channelId:settings.goodbyeChannelId||'',message:settings.goodbyeMessage||'',
+    title:settings.goodbyeTitle||'GOODBYE',description:settings.goodbyeDescription||'We wish you the best.',
+    imageLink:settings.goodbyeImageLink||'',imageData:'',imageConfigured:Boolean(settings.goodbyeImageConfigured),
+    imageClear:false,showAvatar:settings.goodbyeShowAvatar!==false,
+    showUsername:settings.goodbyeShowUsername!==false,showFooter:settings.goodbyeShowFooter!==false,
+    blur:Boolean(settings.goodbyeBlur)
+   }
+  };
+  const payload=()=>{
+   const out={};
+   for(const key of ['welcome','goodbye']){
+    const v=states[key],cap=key[0].toUpperCase()+key.slice(1);
+    out[key+'ChannelId']=v.channelId;
+    out[key+'Message']=v.message;
+    out[key+'Title']=v.title;
+    out[key+'Description']=v.description;
+    out[key+'ImageLink']=v.imageLink;
+    out[key+'ImageData']=v.imageData;
+    out[key+'ImageClear']=v.imageClear;
+    out[key+'ShowAvatar']=v.showAvatar;
+    out[key+'ShowUsername']=v.showUsername;
+    out[key+'ShowFooter']=v.showFooter;
+    out[key+'Blur']=v.blur;
+   }
+   return out;
+  };
+  function makeField(parent,label,help,control){
+   const row=el('div','fieldrow'),info=el('div');
+   add(info,el('strong','',label),el('small','',help));
+   row.append(info,control);parent.append(row);return row;
+  }
+  function updateImagePreview(state,preview,caption){
+   preview.replaceChildren();
+   const src=state.imageData||(/^https:\/\//i.test(state.imageLink)?state.imageLink:'');
+   if(src){
+    const img=el('img');img.alt='Greeting background preview';img.src=src;
+    img.onerror=()=>{preview.replaceChildren();preview.append(el('span','','Preview unavailable for this link. Destiny will validate it when saving.') )};
+    preview.append(img);
+    caption.textContent=state.imageData?'New image ready to upload.':'Image URL entered. Save to apply it.';
+   }else if(state.imageConfigured&&!state.imageClear){
+    preview.append(el('span','','An image is already saved. Upload or paste another image to replace it.'));
+    caption.textContent='Existing image will be kept unless you replace or remove it.';
+   }else{
+    preview.append(el('span','','No background image selected'));
+    caption.textContent='Optional. Without artwork, Destiny sends a clean text greeting.';
+   }
+  }
+  function createPanel(key,title,description){
+   const state=states[key],card=el('section','panel welcome-card');
+   const head=el('div','welcome-panel-head');
+   const heading=el('div');
+   add(heading,el('div','eyebrow',key==='welcome'?'MEMBER JOIN':'MEMBER LEAVE'),el('h2','',title),el('p','',description));
+   const chip=el('span','badge',state.channelId?'Configured':'Not configured');
+   head.append(heading,chip);card.append(head);
+   const body=el('div','welcome-panel-body');card.append(body);
+
+   const channel=el('select','input');channel.setAttribute('aria-label',title+' channel');
+   const none=el('option','','Disabled · do not send');none.value='';channel.append(none);
+   if(state.channelId&&!channels.some(c=>c.id===state.channelId)){
+    const missing=el('option','','Previously selected channel · unavailable');missing.value=state.channelId;missing.disabled=true;channel.append(missing);
+   }
+   for(const ch of channels){const option=el('option','','# '+ch.name+(ch.canAttachFiles?'':' · no image uploads'));option.value=ch.id;channel.append(option)}
+   channel.value=state.channelId;channel.onchange=()=>{state.channelId=channel.value;chip.textContent=state.channelId?'Configured':'Not configured'};
+   makeField(body,'Destination channel','Choose where this greeting should be posted. Select Disabled to turn this greeting off.',channel);
+
+   const message=el('textarea','input');message.maxLength=1500;message.value=state.message;
+   message.placeholder=key==='welcome'?'Welcome {displayname} to {server}!':'Goodbye {displayname}. We wish you the best!';
+   message.oninput=()=>state.message=message.value;
+   makeField(body,'Message','Supports {user}, {username}, {displayname} and {server}. User mentions will not trigger notifications.',message);
+
+   const titleInput=el('input','input');titleInput.maxLength=100;titleInput.value=state.title;
+   titleInput.oninput=()=>state.title=titleInput.value;
+   makeField(body,'Image title','Displayed over the background image. Maximum 100 characters.',titleInput);
+   const desc=el('textarea','input');desc.maxLength=240;desc.value=state.description;
+   desc.oninput=()=>state.description=desc.value;
+   makeField(body,'Image description','Short supporting line shown on the image. Maximum 240 characters.',desc);
+
+   const media=el('div','welcome-media');
+   const mediaIntro=el('div','welcome-media-intro');
+   add(mediaIntro,el('strong','','Greeting artwork'),el('p','','Upload an image, drag one here, or focus this area and paste an image with Ctrl + V. PNG, JPG, WEBP and GIF · max 5 MB.'));
+   media.append(mediaIntro);
+   const drop=el('div','welcome-dropzone');
+   drop.tabIndex=0;drop.setAttribute('role','button');drop.setAttribute('aria-label','Upload or paste a greeting image');
+   add(drop,el('span','welcome-drop-icon','＋'),el('strong','','Drop or paste an image here'),el('small','','Click to browse files · Ctrl + V to paste from clipboard'));
+   const file=el('input');file.type='file';file.accept='image/png,image/jpeg,image/webp,image/gif';file.hidden=true;
+   const preview=el('div','welcome-image-preview');
+   const caption=el('small','welcome-image-caption','');
+   const url=el('input','input');url.type='url';url.placeholder='Paste a direct HTTPS image URL or Discord message link…';
+   url.value=state.imageLink;
+   url.oninput=()=>{
+    state.imageLink=url.value.trim();state.imageData='';state.imageClear=false;
+    if(state.imageLink)state.imageConfigured=true;
+    updateImagePreview(state,preview,caption);
+   };
+   const fileName=el('small','welcome-image-caption','');
+   function acceptImage(image){
+    if(!image)return;
+    const allowed=['image/png','image/jpeg','image/webp','image/gif'];
+    if(!allowed.includes(image.type)){caption.textContent='Unsupported file. Use PNG, JPG, WEBP or GIF.';return}
+    if(image.size>5*1024*1024){caption.textContent='That image is larger than 5 MB. Choose a smaller file.';return}
+    const reader=new FileReader();
+    reader.onload=()=>{
+     if(typeof reader.result!=='string')return;
+     state.imageData=reader.result;state.imageLink='';state.imageClear=false;state.imageConfigured=true;
+     url.value='';fileName.textContent=image.name||'Pasted image';
+     updateImagePreview(state,preview,caption);
+    };
+    reader.onerror=()=>{caption.textContent='The image could not be read. Try another file.'};
+    reader.readAsDataURL(image);
+   }
+   file.onchange=()=>acceptImage(file.files?.[0]);
+   drop.onclick=()=>file.click();
+   drop.addEventListener('keydown',event=>{if(event.key==='Enter'||event.key===' '){event.preventDefault();file.click()}});
+   drop.addEventListener('dragover',event=>{event.preventDefault();drop.classList.add('dragging')});
+   drop.addEventListener('dragleave',()=>drop.classList.remove('dragging'));
+   drop.addEventListener('drop',event=>{event.preventDefault();drop.classList.remove('dragging');acceptImage(event.dataTransfer?.files?.[0])});
+   drop.addEventListener('paste',event=>{
+    const items=[...(event.clipboardData?.items||[])];
+    const imageItem=items.find(item=>item.type?.startsWith('image/'));
+    if(imageItem){event.preventDefault();acceptImage(imageItem.getAsFile());return}
+    const text=event.clipboardData?.getData('text/plain')||'';
+    if(/^https:\/\//i.test(text.trim())){event.preventDefault();url.value=text.trim();url.dispatchEvent(new Event('input',{bubbles:true}))}
+   });
+   const imageControls=el('div','welcome-image-controls');
+   const removeImage=el('button','button','Remove image');removeImage.type='button';
+   removeImage.onclick=()=>{
+    state.imageData='';state.imageLink='';state.imageClear=true;state.imageConfigured=false;
+    url.value='';file.value='';fileName.textContent='';
+    updateImagePreview(state,preview,caption);
+   };
+   imageControls.append(url,removeImage);
+   media.append(drop,file,preview,caption,fileName,imageControls);
+   makeField(body,'Background image','The selected image is rendered into a 1200 × 600 greeting card with the member details.',media);
+
+   const options=el('div','welcome-options');
+   function toggle(label,help,field){
+    const wrap=el('div','welcome-option'),copy=el('div');
+    add(copy,el('strong','',label),el('small','',help));
+    const button=el('button','toggle'+(state[field]?' on':''));button.type='button';
+    button.setAttribute('aria-label',label);button.setAttribute('aria-pressed',String(state[field]));
+    button.onclick=()=>{state[field]=!state[field];button.classList.toggle('on',state[field]);button.setAttribute('aria-pressed',String(state[field]))};
+    wrap.append(copy,button);options.append(wrap);
+   }
+   toggle('Show member avatar','Place the member’s profile picture on the greeting card.','showAvatar');
+   toggle('Show username','Display the member’s Discord username on the card.','showUsername');
+   toggle('Show footer','Add the community footer to the card.','showFooter');
+   toggle('Blur background','Apply a soft blur to the background image.','blur');
+   body.append(options);
+
+   const actions=el('div','actions welcome-actions'),status=el('span','','');
+   status.setAttribute('role','status');status.style.flex='1';status.style.fontSize='12px';status.style.color='#b9c6d8';
+   const reset=el('button','button','Reset panel');reset.type='button';reset.onclick=()=>go('Welcome & Goodbye');
+   const save=el('button','button primary','Save '+(key==='welcome'?'welcome':'goodbye'));
+   save.type='button';
+   save.onclick=async()=>{
+    if(!sessionToken||!currentUser){status.textContent='Your Discord session expired. Sign in again.';return}
+    if(state.channelId&&state.imageConfigured&&channels.length&&
+       !channels.find(ch=>ch.id===state.channelId)?.canAttachFiles){
+     status.textContent='Destiny needs Attach Files permission in the selected channel.';status.style.color='#f4b7b7';return;
     }
-    if(!currentUser || !sessionToken){
-        const notice=el('div','alert','You need to sign in with Discord to edit server settings.');
-        content.append(notice);
-        const button=el('button','button primary','Login with Discord');
-        button.style.marginTop='16px';button.onclick=loginDiscord;content.append(button);
-        return;
-    }
-    if(!selectedGuild){
-        content.append(el('div','alert','Select a server from My Servers to edit its Welcome & Goodbye configuration.'));
-        const button=el('button','button primary','Choose a server');
-        button.style.marginTop='16px';button.onclick=()=>go('My Servers');content.append(button);
-        return;
-    }
-    const guildId=selectedGuild.id;
-    const panel=el('section','panel');
-    const head=el('div','panel-head');
-    add(head,el('h2','','Live configuration'),el('p','','Loading channels and saved messages from Destiny…'));
-    panel.append(head);content.append(panel);
+    save.disabled=true;reset.disabled=true;save.textContent='Saving…';status.textContent='Saving '+key+' settings to Destiny…';
     try{
-        const data=await authApi('/guilds/'+encodeURIComponent(guildId)+'/welcome');
-        if(current!=='Welcome & Goodbye'||selectedGuild?.id!==guildId)return;
-        head.querySelector('p').textContent='Changes in this section are saved to Destiny and apply only to '+(data.guildName||selectedGuild.name)+'.';
-        const values={
-            welcomeChannelId:data.settings?.welcomeChannelId||'',
-            welcomeMessage:data.settings?.welcomeMessage||'',
-            goodbyeChannelId:data.settings?.goodbyeChannelId||'',
-            goodbyeMessage:data.settings?.goodbyeMessage||'',
-            showAvatar:Boolean(data.settings?.showAvatar),
-            showFooter:Boolean(data.settings?.showFooter)
-        };
-        const channels=Array.isArray(data.channels)?data.channels:[];
-        function field(label,help,control){
-            const row=el('div','fieldrow'),info=el('div');
-            add(info,el('strong','',label),el('small','',help));
-            row.append(info,control);panel.append(row);return row;
-        }
-        function channelSelect(label,help,key){
-            const select=el('select','input');
-            select.setAttribute('aria-label',label);
-            const none=el('option','','Disabled / No channel');none.value='';select.append(none);
-            if(values[key]&&!channels.some(c=>c.id===values[key])){
-                const missing=el('option','','Previously selected channel (unavailable)');missing.value=values[key];missing.disabled=true;select.append(missing);
-            }
-            for(const ch of channels){
-                const option=el('option','', '# '+ch.name);
-                option.value=ch.id;select.append(option);
-            }
-            select.value=values[key];
-            select.onchange=()=>{values[key]=select.value};
-            field(label,help,select);
-        }
-        function messageField(label,help,key){
-            const input=el('textarea','input');
-            input.placeholder='Enter your '+label.toLowerCase();
-            input.value=values[key];input.maxLength=1500;
-            input.setAttribute('aria-label',label);
-            input.oninput=()=>{values[key]=input.value};
-            field(label,help,input);
-        }
-        function toggleField(label,help,key){
-            const button=el('button','toggle'+(values[key]?' on':''));
-            button.type='button';
-            button.setAttribute('aria-label',label);
-            button.setAttribute('aria-pressed',String(values[key]));
-            button.onclick=()=>{
-                values[key]=!values[key];
-                button.classList.toggle('on',values[key]);
-                button.setAttribute('aria-pressed',String(values[key]));
-            };
-            field(label,help,button);
-        }
-        channelSelect('Welcome channel','Where Destiny welcomes new members. Choose Disabled to turn this off.','welcomeChannelId');
-        messageField('Welcome message','Supports {user}, {username}, {displayname} and {server}. Mentions will not ping members.','welcomeMessage');
-        channelSelect('Goodbye channel','Where Destiny says goodbye when a member leaves.','goodbyeChannelId');
-        messageField('Goodbye message','Supports {user}, {username}, {displayname} and {server}.','goodbyeMessage');
-        toggleField('Show avatar','Add the member avatar to an existing image greeting.','showAvatar');
-        toggleField('Show footer','Display the footer in existing image greeting cards.','showFooter');
-
-        const actions=el('div','actions');
-        const status=el('span','','');
-        status.setAttribute('role','status');status.style.flex='1';status.style.fontSize='12px';
-        status.style.color='#b9c6d8';
-        const cancel=el('button','button','Reset');
-        const save=el('button','button primary','Save changes');
-        cancel.type='button';cancel.onclick=()=>go('Welcome & Goodbye');
-        save.type='button';
-        save.onclick=async()=>{
-            if(!sessionToken||!currentUser){status.textContent='Your session expired. Sign in with Discord again.';return}
-            save.disabled=true;cancel.disabled=true;save.textContent='Saving…';status.textContent='Sending changes to Destiny…';
-            try{
-                const result=await authApi('/guilds/'+encodeURIComponent(guildId)+'/welcome',{
-                    method:'PUT',body:JSON.stringify(values)
-                });
-                if(current==='Welcome & Goodbye'&&selectedGuild?.id===guildId){
-                    status.textContent=result.ok?'Saved to Destiny successfully.':'The server did not confirm the save.';
-                    status.style.color=result.ok?'#b3e4c8':'#f6b8b8';
-                    window.DestinyUI?.sound(result.ok?'success':'error');
-                }
-            }catch(error){
-                if(current==='Welcome & Goodbye'&&selectedGuild?.id===guildId){
-                    status.style.color='#f4b7b7';
-                    status.textContent='Not saved: '+(error.message||'Unknown error.');
-                    window.DestinyUI?.sound('error');
-                }
-            }finally{
-                save.disabled=false;cancel.disabled=false;save.textContent='Save changes';
-            }
-        };
-        actions.append(status,cancel,save);panel.append(actions);
-        if(!channels.length){
-            content.append(el('div','alert','Destiny cannot send to any available text channels here. Check its View Channel and Send Messages permissions.'));
-        }
-        const imageConfigured=Boolean(data.settings?.welcomeImageConfigured||data.settings?.goodbyeImageConfigured);
-        const note=el('div','alert',imageConfigured
-            ? 'Avatar and footer switches affect the existing welcome/goodbye image configuration. Text messages are posted with the image when set.'
-            : 'Text greetings work immediately after saving. Avatar and footer options only affect image greetings when you configure a background with Destiny’s Discord /welcome or /goodbye command.');
-        note.style.marginTop='16px';content.append(note);
+     const result=await authApi('/guilds/'+encodeURIComponent(guildId)+'/welcome',{method:'PUT',body:JSON.stringify(payload())});
+     if(current==='Welcome & Goodbye'&&selectedGuild?.id===guildId){
+      status.textContent=result.ok?(key==='welcome'?'Welcome':'Goodbye')+' settings saved successfully.':'The server did not confirm the save.';
+      status.style.color=result.ok?'#b3e4c8':'#f4b7b7';
+      window.DestinyUI?.sound(result.ok?'success':'error');
+     }
     }catch(error){
-        if(current!=='Welcome & Goodbye'||selectedGuild?.id!==guildId)return;
-        head.querySelector('p').textContent='Unable to load saved settings.';
-        const errorText=el('div','alert','Could not load this server’s live settings: '+(error.message||'Unknown error.')+'. If the API endpoint is missing, redeploy the latest Destiny bot on FadeHost.');
-        content.append(errorText);
-        const retry=el('button','button primary','Retry');
-        retry.style.marginTop='15px';retry.onclick=()=>go('Welcome & Goodbye');content.append(retry);
-    }
+     if(current==='Welcome & Goodbye'&&selectedGuild?.id===guildId){
+      status.textContent='Not saved: '+(error.message||'Unknown error.');status.style.color='#f4b7b7';
+      window.DestinyUI?.sound('error');
+     }
+    }finally{save.disabled=false;reset.disabled=false;save.textContent='Save '+(key==='welcome'?'welcome':'goodbye')}
+   };
+   actions.append(status,reset,save);body.append(actions);
+   updateImagePreview(state,preview,caption);
+   if(state.imageLink&&!/^https:\/\//i.test(state.imageLink))fileName.textContent='Legacy Discord message image source';
+   return card;
+  }
+  const grid=el('div','welcome-grid');
+  grid.append(createPanel('welcome','Welcome panel','Configure what members see when they join your server.'));
+  grid.append(createPanel('goodbye','Goodbye panel','Configure a separate message and visual style when members leave.'));
+  content.append(grid);
+  if(!channels.length)content.append(el('div','alert','Destiny cannot send to any text channels you can access. Check its View Channel and Send Messages permissions.'));
+  content.append(el('div','alert','The Welcome and Goodbye panels save independently. Images are uploaded to Destiny’s existing server configuration and do not depend on a third-party image host. Available message variables: {user}, {username}, {displayname}, {server}.'));
+ }catch(error){
+  if(current!=='Welcome & Goodbye'||selectedGuild?.id!==guildId)return;
+  loading.textContent='Could not load greeting settings: '+(error.message||'Unknown error.')+'. Check the FadeHost bot deployment and try again.';
+  const retry=el('button','button primary','Retry');retry.style.marginTop='12px';retry.onclick=()=>go('Welcome & Goodbye');loading.append(retry);
+ }
 }
-
 async function civilianExpirySettings(){
  content.append(header('Unsecured Role','Automatically remove members who keep the Unsecured Role role beyond the configured period.'));
  if(authLoading){content.append(el('div','alert','Checking your Discord session…'));return}
