@@ -364,23 +364,22 @@ async function welcomeSettings(){
     blur:Boolean(settings.goodbyeBlur)
    }
   };
-  const payload=()=>{
-   const out={};
-   for(const key of ['welcome','goodbye']){
-    const v=states[key],cap=key[0].toUpperCase()+key.slice(1);
-    out[key+'ChannelId']=v.channelId;
-    out[key+'Message']=v.message;
-    out[key+'Title']=v.title;
-    out[key+'Description']=v.description;
-    out[key+'ImageLink']=v.imageLink;
-    out[key+'ImageData']=v.imageData;
-    out[key+'ImageClear']=v.imageClear;
-    out[key+'ShowAvatar']=v.showAvatar;
-    out[key+'ShowUsername']=v.showUsername;
-    out[key+'ShowFooter']=v.showFooter;
-    out[key+'Blur']=v.blur;
-   }
-   return out;
+  const payload=onlyPanel=>{
+   const v=states[onlyPanel];
+   return {
+    panel:onlyPanel,
+    [onlyPanel+'ChannelId']:v.channelId,
+    [onlyPanel+'Message']:v.message,
+    [onlyPanel+'Title']:v.title,
+    [onlyPanel+'Description']:v.description,
+    [onlyPanel+'ImageLink']:v.imageLink,
+    [onlyPanel+'ImageData']:v.imageData,
+    [onlyPanel+'ImageClear']:v.imageClear,
+    [onlyPanel+'ShowAvatar']:v.showAvatar,
+    [onlyPanel+'ShowUsername']:v.showUsername,
+    [onlyPanel+'ShowFooter']:v.showFooter,
+    [onlyPanel+'Blur']:v.blur
+   };
   };
   function makeField(parent,label,help,control){
    const row=el('div','fieldrow'),info=el('div');
@@ -518,7 +517,7 @@ async function welcomeSettings(){
     }
     save.disabled=true;reset.disabled=true;save.textContent='Saving…';status.textContent='Saving '+key+' settings to Destiny…';
     try{
-     const result=await authApi('/guilds/'+encodeURIComponent(guildId)+'/welcome',{method:'PUT',body:JSON.stringify(payload())});
+     const result=await authApi('/guilds/'+encodeURIComponent(guildId)+'/welcome',{method:'PUT',body:JSON.stringify(payload(key))});
      if(current==='Welcome & Goodbye'&&selectedGuild?.id===guildId){
       status.textContent=result.ok?(key==='welcome'?'Welcome':'Goodbye')+' settings saved successfully.':'The server did not confirm the save.';
       status.style.color=result.ok?'#b3e4c8':'#f4b7b7';
