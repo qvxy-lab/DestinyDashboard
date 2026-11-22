@@ -561,7 +561,94 @@ async function nicknameSyncSettings(){
   content.append(el('div','alert','Templates must include {username} and produce a nickname no longer than 32 characters. Destiny needs Manage Nicknames. Members with multiple configured roles use the highest role’s rule.'));
  }catch(error){if(current!=='Nickname Sync'||selectedGuild?.id!==guildId)return;head.querySelector('p').textContent='Unable to load nickname settings.';content.append(el('div','alert','Could not load this server’s settings: '+(error.message||'Unknown error.')))}
 }
+async function giveawaySettings(){
+ content.append(header('Giveaways','Create and manage real Discord giveaways from Destiny. Changes are published by the bot in your selected server.'));
+ if(!moduleAccessNotice())return;
+ const guildId=selectedGuild.id;
+ const panel=el('section','panel'),head=el('div','panel-head');
+ add(head,el('h2','','Live giveaway management'),el('p','','Loading giveaways and available channels from Destiny…'));
+ panel.append(head);content.append(panel);
+ try{
+  const data=await authApi('/guilds/'+encodeURIComponent(guildId)+'/modules/giveaways');
+  if(current!=='Giveaways'||selectedGuild?.id!==guildId)return;
+  const channels=Array.isArray(data.channels)?data.channels:[];
+  const giveaways=Array.isArray(data.settings?.giveaways)?data.settings.giveaways:[];
+  head.querySelector('p').textContent='Publishing to '+(data.guildName||selectedGuild.name)+'. Active giveaways are synchronized with the bot.';
+  const form=el('div','giveaway-create-form');
+  const values={name:'',prize:'',description:'',duration:'1d',maxContestants:'',channelId:channels[0]?.id||''};
+  function field(label,help,control){
+   const row=el('div','fieldrow'),info=el('div');
+   add(info,el('strong','',label),el('small','',help));row.append(info,control);form.append(row);
+  }
+  const name=el('input','input');name.maxLength=256;name.placeholder='e.g. Community launch giveaway';name.value=values.name;name.oninput=()=>values.name=name.value;
+  field('Giveaway title','Name shown on the Discord giveaway post.',name);
+  const prize=el('input','input');prize.maxLength=500;prize.placeholder='What members can win';prize.oninput=()=>values.prize=prize.value;
+  field('Prize','Describe the reward clearly.',prize);
+  const description=el('textarea','input');description.maxLength=3000;description.placeholder='Optional details, rules or eligibility information';description.oninput=()=>values.description=description.value;
+  field('Description','Optional details shown in the giveaway embed.',description);
+  const duration=el('input','input');duration.value=values.duration;duration.placeholder='12h, 1d, 30m';duration.oninput=()=>values.duration=duration.value;
+  field('Duration','Use seconds, minutes, hours or days. Maximum: 30 days (e.g. 12h or 1d).',duration);
+  const max=el('input','input');max.type='number';max.min='1';max.max='100000';max.step='1';max.placeholder='No limit';max.oninput=()=>values.maxContestants=max.value;
+  field('Maximum entrants','Optional cap. Leave blank for unlimited entries.',max);
+  const channel=el('select','input');channel.setAttribute('aria-label','Giveaway channel');
+  for(const item of channels){const option=el('option','','# '+item.name);option.value=item.id;channel.append(option)}
+  channel.value=values.channelId;channel.onchange=()=>values.channelId=channel.value;
+  field('Publish channel','Destiny needs View Channel, Send Messages and Embed Links.',channel);
+  const actions=el('div','actions'),status=el('span','','');status.setAttribute('role','status');status.style.flex='1';status.style.fontSize='12px';status.style.color='#b9c6d8';
+  const create=el('button','button primary','Create giveaway');
+  create.disabled=!channels.length;
+  create.onclick=async()=>{
+   if(!values.name.trim()||!values.prize.trim()||!values.duration.trim()||!values.channelId){status.textContent='Complete the title, prize, duration and channel first.';return}
+   create.disabled=true;create.textContent='Publishing…';status.textContent='Creating the Discord post…';
+   try{
+    const result=await authApi('/guilds/'+encodeURIComponent(guildId)+'/modules/giveaways',{method:'PUT',body:JSON.stringify({action:'create',...values})});
+    if(!result.ok)throw Error('Destiny did not confirm the giveaway was created.');
+    status.textContent='Giveaway published successfully.';status.style.color='#b3e4c8';window.DestinyUI?.sound('success');
+    go('Giveaways');
+   }catch(error){status.textContent='Could not create giveaway: '+(error.message||'Unknown error.');status.style.color='#f4b7b7';window.DestinyUI?.sound('error')}
+   finally{create.disabled=!channels.length;create.textContent='Create giveaway'}
+  };
+  actions.append(status,create);form.append(actions);panel.append(form);
+  const listPanel=el('section','panel');listPanel.style.marginTop='18px';
+  const listHead=el('div','panel-head');add(listHead,el('h2','','Your giveaways'),el('p','',giveaways.length+' giveaway'+(giveaways.length===1?'':'s')+' found in this server.'));listPanel.append(listHead);
+  if(!giveaways.length){
+   const empty=el('div','server-empty');add(empty,el('div','server-empty-icon','✦'),el('strong','','No giveaways yet'),el('p','','Create your first giveaway above. It will appear in Discord with a working entry button.'));listPanel.append(empty);
+  }else{
+   for(const giveaway of giveaways){
+    const card=el('div','fieldrow'),info=el('div');
+    const title=el('strong','',giveaway.name||'Untitled giveaway');
+    const prizeText=el('small','',(giveaway.prize||'No prize details')+' · #'+(giveaway.channelName||'unknown'));
+    const count=el('small','',String(giveaway.entrantCount||0)+' entrants'+(giveaway.maxContestants?' / '+giveaway.maxContestants+' max':''));
+    const state=el('span','badge',giveaway.ended?'ENDED':'ACTIVE');
+    state.style.marginTop='9px';state.style.display='inline-block';
+    const ending=el('small','',giveaway.ended?(giveaway.winner?'Winner selected':'Ended without entries'):'Ends '+new Date(giveaway.endAt).toLocaleString());
+    add(info,title,prizeText,count,ending,state);
+    const controls=el('div');controls.style.display='flex';controls.style.alignItems='center';controls.style.gap='8px';
+    if(!giveaway.ended){
+     const end=el('button','button','End now');end.type='button';
+     end.onclick=async()=>{
+      if(!window.confirm('End "'+giveaway.name+'" now and select a winner?'))return;
+      end.disabled=true;end.textContent='Ending…';
+      try{await authApi('/guilds/'+encodeURIComponent(guildId)+'/modules/giveaways',{method:'PUT',body:JSON.stringify({action:'end',messageId:giveaway.messageId})});go('Giveaways')}
+      catch(error){end.disabled=false;end.textContent='End now';showLoginNotice('Could not end giveaway',error.message||'Unknown error.')}
+     };
+     controls.append(end);
+    }
+    const open=el('a','button','Open post');open.href='https://discord.com/channels/'+encodeURIComponent(guildId)+'/'+encodeURIComponent(giveaway.channelId)+'/'+encodeURIComponent(giveaway.messageId);open.target='_blank';open.rel='noopener noreferrer';controls.append(open);
+    card.append(info,controls);listPanel.append(card);
+   }
+  }
+  content.append(listPanel);
+  content.append(el('div','alert','Giveaways are stored by Destiny and survive bot restarts. Ending a giveaway selects a winner from valid entries and updates the original Discord post.'));
+ }catch(error){
+  if(current!=='Giveaways'||selectedGuild?.id!==guildId)return;
+  head.querySelector('p').textContent='Unable to load live giveaway data.';
+  content.append(el('div','alert','Destiny could not load giveaways: '+(error.message||'Unknown error.')+'. Make sure the latest bot deployment is running.'));
+ }
+}
+
 function settings(name){
+ if(name==='Giveaways'){void giveawaySettings();return}
  if(name==='Welcome & Goodbye'){void welcomeSettings();return}
  if(name==='Autoroles'){void autoroleSettings();return}
  if(name==='Nickname Sync'){void nicknameSyncSettings();return}
